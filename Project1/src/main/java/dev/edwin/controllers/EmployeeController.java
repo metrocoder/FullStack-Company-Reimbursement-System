@@ -94,10 +94,11 @@ public class EmployeeController
 	};
 	
 	public static Handler deleteEmployee = (ctx) -> {
-		String eid = ctx.pathParam("eid");
+		String body = ctx.body();
+		Employee employee = gson.fromJson(body, Employee.class);
 		try
 		{
-			boolean result = eserv.deleteEmployee(Integer.parseInt(eid));
+			boolean result = eserv.deleteEmployee(employee);
 			
 			 if(result == true)
 				 ctx.status(200);
