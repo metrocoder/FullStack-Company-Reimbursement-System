@@ -11,9 +11,6 @@ public interface ReimbursementDAO {
 	
 //	Read
 	Reimbursement getReimbursementById(int rid);
-	Reimbursement getReimbursementByEmployee(int eid);
-	Reimbursement getReimbursementByCategory(int cid);
-	Reimbursement getReimbursementByStatus(int status);
 	List<Reimbursement> getAllReimbursement();
 	
 //	Update

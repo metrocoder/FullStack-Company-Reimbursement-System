@@ -50,35 +50,6 @@ public class ReimbursementDAOHibernate implements ReimbursementDAO {
         return result;
     }
 
-    @Override
-    public Reimbursement getReimbursementByEmployee(int eid) {
-        Session s = sf.openSession();
-
-        Reimbursement result = s.get(Reimbursement.class, eid);
-        s.close();
-
-        return result;
-    }
-
-    @Override
-    public Reimbursement getReimbursementByCategory(int cid) {
-        Session s = sf.openSession();
-
-        Reimbursement result = s.get(Reimbursement.class, cid);
-        s.close();
-
-        return result;
-    }
-
-    @Override
-    public Reimbursement getReimbursementByStatus(int status) {
-        Session s = sf.openSession();
-
-        Reimbursement result = s.get(Reimbursement.class, status);
-        s.close();
-
-        return result;
-    }
 
     @Override
     public List<Reimbursement> getAllReimbursement() {
