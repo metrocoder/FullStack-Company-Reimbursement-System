@@ -20,6 +20,6 @@ public interface ReimbursementDAO {
 	Reimbursement updateReimbursement(Reimbursement reimbursement);
 	
 //	Delete
-	boolean deleteReimbursement(Reimbursement Reimbursement);
+	boolean deleteReimbursement(Reimbursement reimbursement);
 
 }
