@@ -9,17 +9,19 @@ import java.util.List;
 public class ManagerServiceImp implements ManagerService {
 
     @Inject
-    private static ManagerDAO mdao = null;
+    private ManagerDAO mdao;
 
 
     private static ManagerService mserv = null;
 
     private ManagerServiceImp() {
+        super();
     }
 
     public static ManagerService getMserv() {
         if (mserv == null)
             mserv = new ManagerServiceImp();
+
         return mserv;
     }
 

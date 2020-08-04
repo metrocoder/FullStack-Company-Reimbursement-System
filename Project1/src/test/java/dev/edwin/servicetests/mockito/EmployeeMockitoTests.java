@@ -1,4 +1,4 @@
-package dev.edwin.servicetests;
+package dev.edwin.servicetests.mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
