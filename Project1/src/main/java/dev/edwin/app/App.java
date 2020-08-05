@@ -3,9 +3,11 @@ package dev.edwin.app;
 import dev.edwin.controllers.EmployeeController;
 import dev.edwin.controllers.ExpenseCategoryController;
 import dev.edwin.controllers.ManagerController;
+import dev.edwin.controllers.ReimbursementController;
 import dev.edwin.entities.Employee;
 import dev.edwin.entities.ExpenseCategory;
 import dev.edwin.entities.Manager;
+import dev.edwin.entities.Reimbursement;
 import io.javalin.Javalin;
 
 public class App {
@@ -48,13 +50,13 @@ public class App {
 //		########################
 //		REIMBURSEMENT
 // 		########################
-		app.put("/expense-category", ExpenseCategoryController.createExpenseCategory);
+		app.put("/reimbursement", ReimbursementController.createReimbursement);
 
-		app.get("/expense-categories", ExpenseCategoryController.getAllExpenseCategories);
-		app.get("/expense-category/:cid", ExpenseCategoryController.getExpenseCategoryById);
+		app.get("/reimbursements", ReimbursementController.getAllReimbursements);
+		app.get("/reimbursement/:rid", ReimbursementController.getReimbursementById);
 
-		app.post("/expense-category", ExpenseCategoryController.updateExpenseCategory);
-		app.delete("/expense-category", ExpenseCategoryController.deleteExpenseCategory);
+		app.post("/reimbursement", ReimbursementController.updateReimbursement);
+		app.delete("/reimbursement", ReimbursementController.deleteReimbursement);
 
 
 	}
