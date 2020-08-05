@@ -106,6 +106,7 @@ public class EmployeeController
 				 ctx.status(404);
 		}catch(NumberFormatException e)
 		{
+			ctx.status(404);
 			e.printStackTrace();
 		}
 	};
