@@ -9,7 +9,9 @@ import java.util.List;
 public class ReimbursementServiceImp implements ReimbursementService {
 
     @Inject
-    private static ReimbursementDAO rdao = null;
+    private  ReimbursementDAO rdao;
+
+
     private static ReimbursementService rserv = null;
 
     private ReimbursementServiceImp() {
