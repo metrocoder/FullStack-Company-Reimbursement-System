@@ -53,24 +53,6 @@ public class EmployeeDAOHibernate implements EmployeeDAO
 		s.close(); 
 		return employee;
 	}
-	
-	@Override
-	public Employee getEmployeeByEmail(String email) {
-		Session s = sf.openSession(); 
-		
-		Employee employee = s.get(Employee.class, email);
-		s.close(); 
-		return employee;
-	}
-
-	@Override
-	public Employee getEmployeeByName(String name) {
-		Session s = sf.openSession(); 
-		
-		Employee employee = s.get(Employee.class, name);
-		s.close(); 
-		return employee;
-	} 
 
 	@Override
 	public List<Employee> getAllEmployees() {

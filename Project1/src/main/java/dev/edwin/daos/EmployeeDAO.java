@@ -9,9 +9,6 @@ public interface EmployeeDAO
 	Employee createEmployee(Employee employee);
 	
 	Employee getEmployeeById(int eid);
-	Employee getEmployeeByEmail(String email);
-	Employee getEmployeeByName(String name);
-	
 	List<Employee> getAllEmployees();
 	
 	Employee updateEmployee(Employee employee);

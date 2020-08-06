@@ -9,7 +9,8 @@ import dev.edwin.daos.ManagerDAOHibernate;
 import dev.edwin.entities.Manager;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ManagerTest {
+class ManagerDAOTest
+{
 	
 	private ManagerDAO mdao = ManagerDAOHibernate.getMdao();
 
