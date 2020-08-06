@@ -36,13 +36,32 @@ public class ManagerServiceImp implements ManagerService {
     }
 
     @Override
-    public Manager getManagerByEmail(String email) {
-        return mdao.getManagerByEmail(email);
+    public Manager getManagerByName(String name) {
+
+        List<Manager> managers = mdao.getAllManagers();
+        for (Manager m:
+             managers) {
+
+            if (m.getName().compareToIgnoreCase(name) == 0)
+            {
+                return m;
+            }
+        }
+        return null;
     }
 
     @Override
-    public Manager getManagerByName(String name) {
-        return mdao.getManagerByName(name);
+    public Manager getManagerByEmail(String email) {
+        List<Manager> managers = mdao.getAllManagers();
+        for (Manager m:
+                managers) {
+
+            if (m.getEmail().compareToIgnoreCase(email) == 0)
+            {
+                return m;
+            }
+        }
+        return null;
     }
 
     @Override

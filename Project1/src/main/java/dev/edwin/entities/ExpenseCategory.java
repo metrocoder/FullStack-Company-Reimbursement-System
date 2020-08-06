@@ -28,7 +28,7 @@ public class ExpenseCategory {
 	@Column(name="image_url")
 	private String image_url;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "REIMBURSEMENT", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "expenseCategory", cascade = CascadeType.ALL)
 	private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 	
 	

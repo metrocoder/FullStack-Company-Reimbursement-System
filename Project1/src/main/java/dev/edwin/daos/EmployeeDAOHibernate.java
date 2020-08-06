@@ -18,7 +18,7 @@ import dev.edwin.utils.HibernateUtil;
 
 public class EmployeeDAOHibernate implements EmployeeDAO 
 {
-	private static EmployeeDAO edao=null ;
+	private static EmployeeDAO edao;
 	private static SessionFactory sf = HibernateUtil.getSessionFactory();
 	
 	private EmployeeDAOHibernate() {super();}

@@ -49,15 +49,6 @@ public class ExpenseCategoryDAOHibernate implements ExpenseCategoryDAO {
         return result;
     }
 
-    @Override
-    public ExpenseCategory getExpenseCategoryByTitle(String title) {
-        Session s = sf.openSession();
-
-        ExpenseCategory result = s.get(ExpenseCategory.class, title);
-        s.close();
-
-        return result;
-    }
 
     @Override
     public List<ExpenseCategory> getAllExpeneseCategories() {

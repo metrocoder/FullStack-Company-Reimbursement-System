@@ -32,11 +32,12 @@ public class Employee {
 	private String name;
 	@Column(name="image_url")
 	private String image_url;
+
 	@ManyToOne
 	@JoinColumn(name = "mgid")
-	private int mgid;
+	private Manager manager;
 	
-	@OneToMany(mappedBy = "REIMBURSEMENT", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 	
 	
@@ -47,14 +48,14 @@ public class Employee {
 	
 
 
-	public Employee(int eid, String email, String password, String name, String image_url, int mgid) {
+	public Employee(int eid, String email, String password, String name, String image_url) {
 		super();
 		this.eid = eid;
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.image_url = image_url;
-		this.mgid = mgid;
+//		this.mgid = mgid;
 	}
 
 
@@ -128,21 +129,13 @@ public class Employee {
 	}
 
 
-
-
-	public int getMgid() {
-		return mgid;
+	public Manager getManager() {
+		return manager;
 	}
 
-
-
-
-	public void setMgid(int mgid) {
-		this.mgid = mgid;
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
-
-
-
 
 	public List<Reimbursement> getReimbursements() {
 		return reimbursements;
@@ -161,7 +154,7 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [eid=" + eid + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", image_url=" + image_url + ", mgid=" + mgid + "]";
+				+ ", image_url=" + image_url + "]";
 	}
 
 	

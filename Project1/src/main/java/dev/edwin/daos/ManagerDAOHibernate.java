@@ -1,18 +1,23 @@
 package dev.edwin.daos;
 
 import java.util.List;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import dev.edwin.entities.Manager;
 import dev.edwin.utils.HibernateUtil;
+import org.hibernate.criterion.Restrictions;
 
 public class ManagerDAOHibernate implements ManagerDAO {
-	private static ManagerDAO mdao = null;
+	private static ManagerDAO mdao;
+
 	private static SessionFactory sf = HibernateUtil.getSessionFactory();
 	
 	private ManagerDAOHibernate() {super();}
@@ -41,32 +46,13 @@ public class ManagerDAOHibernate implements ManagerDAO {
 	@Override
 	public Manager getManagerById(int mgid) {
 		Session s = sf.openSession();
-		
+
 		Manager result = s.get(Manager.class, mgid);
 		s.close();
-		
+
 		return result;
 	}
 
-	@Override
-	public Manager getManagerByEmail(String email) {
-		Session s = sf.openSession();
-		
-		Manager result = s.get(Manager.class, email);
-		s.close();
-		
-		return result;
-	}
-
-	@Override
-	public Manager getManagerByName(String name) {
-		Session s = sf.openSession();
-		
-		Manager result = s.get(Manager.class, name);
-		s.close();
-		
-		return result;
-	}
 
 	@Override
 	public List<Manager> getAllManagers() {
@@ -102,7 +88,7 @@ public class ManagerDAOHibernate implements ManagerDAO {
 			Session s = sf.openSession();
 			s.beginTransaction();
 			
-			s.update(manager);
+			s.delete(manager);
 			
 			s.getTransaction().commit();
 			s.close();

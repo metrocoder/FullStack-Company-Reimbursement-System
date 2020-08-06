@@ -34,7 +34,7 @@ public class Manager {
 	@Column(name="image_url")
 	private String image_url;
 	
-	@OneToMany(mappedBy = "MANAGER", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "manager", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Employee> employees = new ArrayList<Employee>();
 	
 

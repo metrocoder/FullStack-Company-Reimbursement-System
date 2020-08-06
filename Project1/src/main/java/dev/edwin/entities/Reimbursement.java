@@ -25,14 +25,14 @@ public class Reimbursement {
 	@Column(name="amount")
 	private float amount;
 	
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	@Column(name="submit_date")
 	private Date submit_date;
 	
 	@Column(name="status")
 	private boolean status;
 	
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	@Column(name="status_date")
 	private Date status_date;
 	

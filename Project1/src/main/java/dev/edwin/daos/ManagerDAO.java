@@ -11,8 +11,6 @@ public interface ManagerDAO {
 	
 //	READ
 	Manager getManagerById(int mgid);
-	Manager getManagerByEmail(String email);
-	Manager getManagerByName(String name);
 	List<Manager> getAllManagers();
 	
 	

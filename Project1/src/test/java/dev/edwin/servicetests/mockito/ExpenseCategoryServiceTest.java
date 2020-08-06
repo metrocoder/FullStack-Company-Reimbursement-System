@@ -37,7 +37,7 @@ class ExpenseCategoryServiceTest {
         ExpenseCategory expenseCategory = new ExpenseCategory(20,"Test Cat","Cat.png");
 
         Mockito.when(ecdao.createExpenseCategory(expenseCategory)).thenReturn(expenseCategory);
-        ExpenseCategory result = ecdao.createExpenseCategory(expenseCategory);
+        ExpenseCategory result = ecserv.createExpenseCategory(expenseCategory);
 
         Assertions.assertEquals("Test Cat", result.getTitle());
 
@@ -49,7 +49,7 @@ class ExpenseCategoryServiceTest {
         ExpenseCategory expenseCategory = new ExpenseCategory(20,"Test Cat","Cat.png");
 
         Mockito.when(ecdao.getExpenseCategoryById(expenseCategory.getCid())).thenReturn(expenseCategory);
-        ExpenseCategory result = ecdao.getExpenseCategoryById(expenseCategory.getCid());
+        ExpenseCategory result = ecserv.getExpenseCategoryById(expenseCategory.getCid());
 
         Assertions.assertEquals("Test Cat", result.getTitle());
 
@@ -58,14 +58,16 @@ class ExpenseCategoryServiceTest {
 
     @Test
     void getExpenseCategoryByTitle() {
-        ExpenseCategory expenseCategory = new ExpenseCategory(20,"Test Cat","Cat.png");
+        List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
+        expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
+        expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
-        Mockito.when(ecdao.getExpenseCategoryByTitle(expenseCategory.getTitle())).thenReturn(expenseCategory);
-        ExpenseCategory result = ecdao.getExpenseCategoryByTitle(expenseCategory.getTitle());
+        Mockito.when(ecdao.getAllExpeneseCategories()).thenReturn(expenseCategories);
+        ExpenseCategory result = ecserv.getExpenseCategoryByTitle(expenseCategories.get(0).getTitle());
 
         Assertions.assertEquals("Test Cat", result.getTitle());
 
-        Mockito.verify(ecdao).getExpenseCategoryByTitle(expenseCategory.getTitle());
+        Mockito.verify(ecdao).getAllExpeneseCategories();
     }
 
     @Test
@@ -75,7 +77,7 @@ class ExpenseCategoryServiceTest {
         expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
         Mockito.when(ecdao.getAllExpeneseCategories()).thenReturn(expenseCategories);
-        List<ExpenseCategory> result = ecdao.getAllExpeneseCategories();
+        List<ExpenseCategory> result = ecserv.getAllExpenseCategories();
 
         Assertions.assertNotEquals(0, result.size());
 
@@ -89,7 +91,7 @@ class ExpenseCategoryServiceTest {
         expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
         Mockito.when(ecdao.updateExpenseCategory(expenseCategories.get(0))).thenReturn(expenseCategories.get(0));
-        ExpenseCategory result = ecdao.updateExpenseCategory(expenseCategories.get(0));
+        ExpenseCategory result = ecserv.updateExpenseCategory(expenseCategories.get(0));
 
         Assertions.assertEquals(20, result.getCid());
 
@@ -104,7 +106,7 @@ class ExpenseCategoryServiceTest {
         expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
         Mockito.when(ecdao.deleteExpenseCategory(expenseCategories.get(0))).thenReturn(true);
-        boolean result = ecdao.deleteExpenseCategory(expenseCategories.get(0));
+        boolean result = ecserv.deleteExpenseCategory(expenseCategories.get(0));
 
         Assertions.assertNotEquals(false, result);
 

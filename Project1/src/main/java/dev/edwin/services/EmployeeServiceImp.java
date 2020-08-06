@@ -44,7 +44,7 @@ public class EmployeeServiceImp implements EmployeeService {
 		List<Employee> employees = edao.getAllEmployees();
 		for(Employee e : employees)
 		{
-			if(e.getEmail() == email)
+			if(e.getEmail().compareToIgnoreCase(email) == 0)
 				return e;
 		}
 		
@@ -56,7 +56,7 @@ public class EmployeeServiceImp implements EmployeeService {
 		List<Employee> employees = edao.getAllEmployees();
 		for(Employee e : employees)
 		{
-			if(e.getName() == name)
+			if(e.getName().compareToIgnoreCase(name) == 0)
 				return e;
 		}
 		

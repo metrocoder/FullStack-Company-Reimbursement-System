@@ -79,43 +79,7 @@ class ManagerServiceMockitoTest {
         Mockito.verify(mdaoMock).getManagerById(m.getMgid());
     }
 
-    @Test
-    @Order(3)
-    void getManagerByEmail() {
-        Manager m = new Manager();
-        m.setMgid(20);
-        m.setEmail("emailer@email.com");
-        m.setEmployees(null);
-        m.setImage_url("image URL");
-        m.setName("Robo Lord");
-        m.setPassword("password");
 
-        Mockito.when(mdaoMock.getManagerByEmail(m.getEmail())).thenReturn(m);
-        Manager result = mserv.getManagerByEmail(m.getEmail());
-        Assertions.assertEquals("emailer@email.com", result.getEmail());
-
-//        Verifies that we Mocked the mdao in mserv
-        Mockito.verify(mdaoMock).getManagerByEmail(m.getEmail());
-    }
-
-    @Test
-    @Order(4)
-    void getManagerByName() {
-        Manager m = new Manager();
-        m.setMgid(20);
-        m.setEmail("emailer@email.com");
-        m.setEmployees(null);
-        m.setImage_url("image URL");
-        m.setName("Robo Lord");
-        m.setPassword("password");
-
-        Mockito.when(mdaoMock.getManagerByName(m.getName())).thenReturn(m);
-        Manager result = mserv.getManagerByName(m.getName());
-        Assertions.assertEquals("Robo Lord", result.getName());
-
-//        Verifies that we Mocked the mdao in mserv
-        Mockito.verify(mdaoMock).getManagerByName(m.getName());
-    }
 
     @Test
     @Order(5)

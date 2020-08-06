@@ -13,11 +13,11 @@
         
 
         <property name="hibernate.show_sql">true</property>
-        
-        <mapping class = "dev.edwin.entities.Manager"></mapping>
-		<mapping class = "dev.edwin.entities.Reimbursement"></mapping>
-		<mapping class = "dev.edwin.entities.ExpenseCategory"></mapping>
-        <mapping class = "dev.edwin.entities.Employee"></mapping>
+
+        <mapping class="dev.edwin.entities.Manager"/>
+        <mapping class="dev.edwin.entities.Reimbursement"/>
+        <mapping class="dev.edwin.entities.ExpenseCategory"/>
+        <mapping class="dev.edwin.entities.Employee"/>
 
     </session-factory>
 </hibernate-configuration>

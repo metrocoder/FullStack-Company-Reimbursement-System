@@ -9,7 +9,7 @@ import java.util.List;
 public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Inject
-    private static ExpenseCategoryDAO edao = null;
+    private static ExpenseCategoryDAO edao;
 
     private static ExpenseCategoryService eserv = null;
 
@@ -34,7 +34,17 @@ public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Override
     public ExpenseCategory getExpenseCategoryByTitle(String title) {
-        return edao.getExpenseCategoryByTitle(title);
+        List<ExpenseCategory> expenseCategories = edao.getAllExpeneseCategories();
+
+        for (ExpenseCategory e:
+             expenseCategories) {
+            if (e.getTitle().compareToIgnoreCase(title) == 0)
+            {
+                return e;
+            }
+        }
+
+        return null;
     }
 
     @Override

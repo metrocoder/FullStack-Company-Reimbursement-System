@@ -191,11 +191,11 @@ class EmployeeMockitoTests {
 		employee.setName("Employee Name");
 		employee.setPassword("MyPassword");
 		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
+		Mockito.when(edaoMock.deleteEmployee(employee)).thenReturn(true);
 		
-		Employee result = eserv.createEmployee(employee);
+		boolean result = eserv.deleteEmployee(employee);
 		
-		Assertions.assertEquals(true, result.getEmail());
+		Assertions.assertEquals(true, result);
 	}
 	
 	
