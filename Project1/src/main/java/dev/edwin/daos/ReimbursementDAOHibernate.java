@@ -84,7 +84,7 @@ public class ReimbursementDAOHibernate implements ReimbursementDAO {
             Session s = sf.openSession();
             s.beginTransaction();
 
-            s.update(reimbursement);
+            s.delete(reimbursement);
 
             s.getTransaction().commit();
             s.close();

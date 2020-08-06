@@ -1,7 +1,6 @@
 package dev.edwin.daotests;
 
-import dev.edwin.daos.ReimbursementDAO;
-import dev.edwin.daos.ReimbursementDAOHibernate;
+import dev.edwin.daos.*;
 import dev.edwin.entities.Reimbursement;
 import org.junit.jupiter.api.*;
 
@@ -14,14 +13,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReimbursementDAOTest
 {
     private static ReimbursementDAO rdao = ReimbursementDAOHibernate.getRdao();
+    private static EmployeeDAO edao = EmployeeDAOHibernate.getEdao();
+    private static ExpenseCategoryDAO expenseCategoryDAO = ExpenseCategoryDAOHibernate.getEdao();
 
     @Test
     @Order(1)
     void createReimbursement()
     {
         Reimbursement r;
-        r = new Reimbursement(0, 300, Date.valueOf("2011-10-9"), false, null,
-                "Employee note", "Manager Note", null,null
+        r = new Reimbursement(0,
+                300,
+                Date.valueOf("2011-10-9"),
+                false,
+                null,
+                "Employee note",
+                "Manager Note",
+                expenseCategoryDAO.getExpenseCategoryById(1),
+                edao.getEmployeeById(1)
                 );
 
         Reimbursement result = rdao.createReimbursement(r);
@@ -63,9 +71,11 @@ class ReimbursementDAOTest
     {
         Reimbursement slaughter;
         slaughter = new Reimbursement(0, 300, Date.valueOf("2011-10-9"), false, null,
-                "Employee note", "Manager Note", null,null
+                "Delete me note", "Delete Me Manager Note",
+                expenseCategoryDAO.getExpenseCategoryById(1),edao.getEmployeeById(1)
         );
         Reimbursement deleteMe = rdao.createReimbursement(slaughter);
+//        Reimbursement deleteMe = rdao.getReimbursementById(2);
 
         boolean result = rdao.deleteReimbursement(deleteMe);
 

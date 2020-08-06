@@ -83,7 +83,7 @@ public class ExpenseCategoryDAOHibernate implements ExpenseCategoryDAO {
             Session s = sf.openSession();
             s.beginTransaction();
 
-            s.update(expenseCategory);
+            s.delete(expenseCategory);
 
             s.getTransaction().commit();
             s.close();
