@@ -1,6 +1,7 @@
 package dev.edwin.services;
 
 import dev.edwin.daos.ExpenseCategoryDAO;
+import dev.edwin.daos.ExpenseCategoryDAOHibernate;
 import dev.edwin.entities.ExpenseCategory;
 
 import javax.inject.Inject;
@@ -9,9 +10,9 @@ import java.util.List;
 public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Inject
-    private static ExpenseCategoryDAO edao;
+    private static ExpenseCategoryDAO edao = ExpenseCategoryDAOHibernate.getEdao();
 
-    private static ExpenseCategoryService eserv = null;
+    private static ExpenseCategoryService eserv;
 
     private ExpenseCategoryServiceImp() {
     }

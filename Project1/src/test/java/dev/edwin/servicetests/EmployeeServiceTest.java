@@ -73,7 +73,7 @@ class EmployeeServiceTest {
 	{
 		List<Employee> employees = eserv.getAllEmployeesNameAtoZ();
 
-		Assertions.assertEquals("Service Employee", employees.get(employees.size()-1));
+		Assertions.assertEquals("Service Employee", employees.get(employees.size()-1).getName());
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class EmployeeServiceTest {
 	{
 		List<Employee> employees = eserv.getAllEmployeesNameZtoA();
 
-		Assertions.assertEquals("Service Employee", employees.get(0));
+		Assertions.assertEquals("Service Employee", employees.get(0).getName());
 	}
 
 	@Test
@@ -98,7 +98,12 @@ class EmployeeServiceTest {
 	@Order(9)
 	void deleteEmployee()
 	{
-		Employee destroy = eserv.getEmployeeByName("Service Employee");
+		Employee gutMe = new Employee(0,
+				"slaughter@email.com",
+				"hotBoy666",
+				"Sgt. Slaughter",
+				"noSoul.png");
+		Employee destroy = eserv.createEmployee(gutMe);
 		boolean result = eserv.deleteEmployee(destroy);
 
 		Assertions.assertEquals(true, result);

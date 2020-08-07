@@ -1,6 +1,7 @@
 package dev.edwin.services;
 
 import dev.edwin.daos.ManagerDAO;
+import dev.edwin.daos.ManagerDAOHibernate;
 import dev.edwin.entities.Manager;
 
 import javax.inject.Inject;
@@ -9,10 +10,10 @@ import java.util.List;
 public class ManagerServiceImp implements ManagerService {
 
     @Inject
-    private ManagerDAO mdao;
+    private ManagerDAO mdao = ManagerDAOHibernate.getMdao();
 
 
-    private static ManagerService mserv = null;
+    private static ManagerService mserv;
 
     private ManagerServiceImp() {
         super();

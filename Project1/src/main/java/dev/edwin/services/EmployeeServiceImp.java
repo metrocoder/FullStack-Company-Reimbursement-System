@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dev.edwin.daos.EmployeeDAO;
+import dev.edwin.daos.EmployeeDAOHibernate;
 import dev.edwin.entities.Employee;
 
 public class EmployeeServiceImp implements EmployeeService {
@@ -15,7 +16,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	private static EmployeeService eserv = null;
 	
 	@Inject
-	private EmployeeDAO edao;
+	private EmployeeDAO edao = EmployeeDAOHibernate.getEdao();
 	
 	private EmployeeServiceImp() {
 		super();

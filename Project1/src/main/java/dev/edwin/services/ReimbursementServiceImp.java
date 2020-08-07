@@ -1,6 +1,7 @@
 package dev.edwin.services;
 
 import dev.edwin.daos.ReimbursementDAO;
+import dev.edwin.daos.ReimbursementDAOHibernate;
 import dev.edwin.entities.Reimbursement;
 
 import javax.inject.Inject;
@@ -9,10 +10,10 @@ import java.util.List;
 public class ReimbursementServiceImp implements ReimbursementService {
 
     @Inject
-    private  ReimbursementDAO rdao;
+    private  ReimbursementDAO rdao = ReimbursementDAOHibernate.getRdao();
 
 
-    private static ReimbursementService rserv = null;
+    private static ReimbursementService rserv;
 
     private ReimbursementServiceImp() {
     }
