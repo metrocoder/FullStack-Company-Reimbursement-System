@@ -1,18 +1,18 @@
 package dev.edwin.daotests;
 
-import java.util.List;
-
 import org.junit.jupiter.api.*;
 
 import dev.edwin.daos.ManagerDAO;
-import dev.edwin.daos.ManagerDAOHibernate;
+import dev.edwin.daos.ManagerDAOImp;
 import dev.edwin.entities.Manager;
+
+import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ManagerDAOTest
 {
 	
-	private ManagerDAO mdao = ManagerDAOHibernate.getMdao();
+	private ManagerDAO mdao = ManagerDAOImp.getMdao();
 
 
 	@Test
@@ -30,8 +30,6 @@ class ManagerDAOTest
 	void testGetAllManagers() {
 		List<Manager> result = mdao.getAllManagers();
 		Assertions.assertNotEquals(0, result.size());
-
-//		System.out.println(result);
 	}
 
 	@Test
@@ -40,19 +38,18 @@ class ManagerDAOTest
 		Manager result = mdao.getManagerById(1);
 		Assertions.assertEquals("Boss One", result.getName());
 
-//		System.out.println(result);
 	}
 
 	@Test
 	@Order(6)
 	void updateManager()
 	{
-		Manager update = mdao.getManagerById(1);
-		update.setPassword("SecurePass!");
-		Manager result = mdao.updateManager(update);
-
-		Assertions.assertEquals("SecurePass!", result.getPassword());
-
+		List<Manager> update = mdao.getAllManagers();
+		update.get(0).setName("Nombre Nuevo");
+//		System.out.println(update);
+		Manager result = mdao.updateManager(update.get(0));
+		System.out.println(result);
+		Assertions.assertEquals("Nombre Nuevo", result.getName());
 	}
 
 	@Test
@@ -64,9 +61,6 @@ class ManagerDAOTest
 		boolean result = mdao.deleteManager(deleteMe);
 
 		Assertions.assertEquals(true, result);
-
 	}
-	
-	
 
 }

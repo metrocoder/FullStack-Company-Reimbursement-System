@@ -32,7 +32,9 @@ class ManagerServiceTest
     {
         Manager result = mserv.getManagerById(1);
 
-        Assertions.assertEquals("Boss One", result.getName());
+        Assertions.assertEquals("Nombre Nuevo", result.getName());
+
+        System.out.println(result);
     }
 
     @Test
@@ -57,7 +59,7 @@ class ManagerServiceTest
     void getAllManagers()
     {
         List<Manager> managers = mserv.getAllManagers();
-
+        System.out.println(managers);
         Assertions.assertNotEquals(-0, managers.size());
     }
 

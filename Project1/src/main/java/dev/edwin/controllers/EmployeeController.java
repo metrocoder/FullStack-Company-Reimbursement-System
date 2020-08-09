@@ -60,7 +60,8 @@ public class EmployeeController
 //		Can have query to search 
 		String name = ctx.queryParam("name");
 		String email = ctx.queryParam("email");
-		
+		String manager = ctx.queryParam("manager");
+		String sort = ctx.queryParam("sort_employee");
 		
 		List<Employee> employees = new ArrayList<Employee>();
 		
@@ -71,6 +72,18 @@ public class EmployeeController
 		else if (email != null)
 		{
 			employees.add(eserv.getEmployeeByEmail(email));
+		}
+		else if (manager != null)
+		{
+			employees = eserv.getEmployeeByManager(Integer.parseInt(manager));
+		}
+		else if (sort != null)
+		{
+			if (sort.compareToIgnoreCase("ASC")==0)
+				employees = eserv.getAllEmployeesNameAtoZ();
+
+			if (sort.compareToIgnoreCase("DESC")==0)
+				employees = eserv.getAllEmployeesNameZtoA();
 		}
 		else
 		{

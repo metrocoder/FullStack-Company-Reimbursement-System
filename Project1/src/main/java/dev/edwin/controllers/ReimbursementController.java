@@ -57,13 +57,61 @@ public class ReimbursementController {
 
     public static Handler getAllReimbursements = (ctx) -> {
 //		Can have query to search 
-        String name = ctx.queryParam("name");
-        String email = ctx.queryParam("email");
-
+        String employee = ctx.queryParam("employeeId");
+        String category = ctx.queryParam("categoryId");
+        String manager = ctx.queryParam("managerId");
+        String approvalStatus = ctx.queryParam("approval");
+        String sortAmount = ctx.queryParam("sort_amount");
+        String sortStatusDate = ctx.queryParam("sort_status_date");
+        String sortSubmitDate = ctx.queryParam("sort_submit_date");
 
         List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        if (employee != null)
+        {
+            reimbursements = rserv.getReimbursementByEmployee(Integer.parseInt(employee));
+        }
+        else if (category != null)
+        {
+            reimbursements = rserv.getReimbursementByCategory(Integer.parseInt(category));
+        }
+        else if (manager != null)
+        {
+            reimbursements = rserv.getReimbursementByManager(Integer.parseInt(manager));
+        }
+        else if(approvalStatus != null)
+        {
+            if (approvalStatus.compareToIgnoreCase("APPROVED") == 0)
+                reimbursements = rserv.getReimbursementsApproved();
 
-        reimbursements = rserv.getAllReimbursement();
+            if (approvalStatus.compareToIgnoreCase("PENDING") == 0)
+                reimbursements = rserv.getReimbursementsDenied();
+        }
+        else if (sortAmount != null)
+        {
+            if(sortAmount.compareToIgnoreCase("ASC") == 0)
+                reimbursements = rserv.getReimbursementsAmountAscending();
+
+            if (sortAmount.compareToIgnoreCase("DESC") == 0)
+                reimbursements = rserv.getReimbursementsAmountDescending();
+        }
+        else if (sortStatusDate != null)
+        {
+            if (sortStatusDate.compareToIgnoreCase("DESC") == 0)
+                reimbursements = rserv.getReimbursementsStatusDateAscending();
+
+            if (sortStatusDate.compareToIgnoreCase("ASC") == 0)
+                reimbursements = rserv.getReimbursementsStatusDateDescending();
+        }
+        else if (sortSubmitDate != null)
+        {
+            if (sortSubmitDate.compareToIgnoreCase("DESC") == 0)
+                reimbursements = rserv.getReimbursementsSubmitDateAscending();
+
+            if (sortSubmitDate.compareToIgnoreCase("ASC") == 0)
+                reimbursements = rserv.getReimbursementsSubmitDateDescending();
+        }
+        else
+            reimbursements = rserv.getAllReimbursement();
 
 
         String json = gson.toJson(reimbursements);
@@ -89,7 +137,7 @@ public class ReimbursementController {
         {
             boolean result = rserv.deleteReimbursement(reimbursement);
 
-            if(result == true)
+            if(result)
                 ctx.status(200);
             else
                 ctx.status(404);

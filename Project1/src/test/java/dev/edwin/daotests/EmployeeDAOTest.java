@@ -1,28 +1,26 @@
 package dev.edwin.daotests;
 
 import dev.edwin.daos.EmployeeDAO;
-import dev.edwin.daos.EmployeeDAOHibernate;
+import dev.edwin.daos.EmployeeDAOImp;
 import dev.edwin.entities.Employee;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeDAOTest
 {
 
-    private static EmployeeDAO edao = EmployeeDAOHibernate.getEdao();
+    private static EmployeeDAO edao = EmployeeDAOImp.getEdao();
     @Test
     @Order(1)
     void createEmployee()
     {
         Employee e = new Employee(0,
-                "employeeEmail@email.com",
-                "testPass",
+                "jdbcForTheWin@email.com",
+                "hibernate",
                 "My Name",
-                "testImg.png");
+                "testImg.png", 7);
 
         Employee result = edao.createEmployee(e);
 
@@ -33,7 +31,7 @@ class EmployeeDAOTest
     @Order(2)
     void getEmployeeById()
     {
-        Employee result = edao.getEmployeeById(1);
+        Employee result = edao.getEmployeeById(10);
 
         Assertions.assertEquals("testImg.png", result.getImage_url());
     }
@@ -51,7 +49,7 @@ class EmployeeDAOTest
     @Order(4)
     void updateEmployee()
     {
-        Employee updateMe = edao.getEmployeeById(1);
+        Employee updateMe = edao.getEmployeeById(10);
         updateMe.setEmail("MyNewEmail@email.com");
         Employee result = edao.updateEmployee(updateMe);
 
@@ -66,7 +64,7 @@ class EmployeeDAOTest
                 "KillMe@email.com",
                 "Im dying",
                 "Dead Bro",
-                "rip.png");
+                "rip.png",1);
 
         Employee deleteMe = edao.createEmployee(slaughter);
         boolean result = edao.deleteEmployee(deleteMe);

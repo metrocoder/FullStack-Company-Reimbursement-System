@@ -13,6 +13,7 @@ public interface EmployeeService
 	Employee getEmployeeById(int eid);
 	Employee getEmployeeByEmail(String email);
 	Employee getEmployeeByName(String name);
+	List<Employee> getEmployeeByManager(int mgid);
 	List<Employee> getAllEmployees();
 	List<Employee> getAllEmployeesNameAtoZ();
 	List<Employee> getAllEmployeesNameZtoA();

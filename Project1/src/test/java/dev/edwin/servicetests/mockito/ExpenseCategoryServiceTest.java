@@ -1,7 +1,6 @@
 package dev.edwin.servicetests.mockito;
 
 import dev.edwin.daos.ExpenseCategoryDAO;
-import dev.edwin.entities.Employee;
 import dev.edwin.entities.ExpenseCategory;
 import dev.edwin.services.ExpenseCategoryService;
 import dev.edwin.services.ExpenseCategoryServiceImp;
@@ -15,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseCategoryServiceTest {
 
@@ -62,12 +59,12 @@ class ExpenseCategoryServiceTest {
         expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
         expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
-        Mockito.when(ecdao.getAllExpeneseCategories()).thenReturn(expenseCategories);
+        Mockito.when(ecdao.getAllExpenseCategories()).thenReturn(expenseCategories);
         ExpenseCategory result = ecserv.getExpenseCategoryByTitle(expenseCategories.get(0).getTitle());
 
         Assertions.assertEquals("Test Cat", result.getTitle());
 
-        Mockito.verify(ecdao).getAllExpeneseCategories();
+        Mockito.verify(ecdao).getAllExpenseCategories();
     }
 
     @Test
@@ -76,12 +73,12 @@ class ExpenseCategoryServiceTest {
         expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
         expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
 
-        Mockito.when(ecdao.getAllExpeneseCategories()).thenReturn(expenseCategories);
+        Mockito.when(ecdao.getAllExpenseCategories()).thenReturn(expenseCategories);
         List<ExpenseCategory> result = ecserv.getAllExpenseCategories();
 
         Assertions.assertNotEquals(0, result.size());
 
-        Mockito.verify(ecdao).getAllExpeneseCategories();
+        Mockito.verify(ecdao).getAllExpenseCategories();
     }
 
     @Test

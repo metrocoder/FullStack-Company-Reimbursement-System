@@ -55,9 +55,16 @@ public class ExpenseCategoryController {
     };
 
     public static Handler getAllExpenseCategories = (ctx) -> {
+        String title = ctx.queryParam("title");
+
         List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
 
-        expenseCategories = ecserv.getAllExpenseCategories();
+        if(title != null)
+        {
+            expenseCategories.add( ecserv.getExpenseCategoryByTitle(title));
+        }
+        else
+            expenseCategories = ecserv.getAllExpenseCategories();
 
         String json = gson.toJson(expenseCategories);
         ctx.result(json);
@@ -82,7 +89,7 @@ public class ExpenseCategoryController {
         {
             boolean result = ecserv.deleteExpenseCategory(expenseCategory);
 
-            if(result == true)
+            if(result)
                 ctx.status(200);
             else
                 ctx.status(404);

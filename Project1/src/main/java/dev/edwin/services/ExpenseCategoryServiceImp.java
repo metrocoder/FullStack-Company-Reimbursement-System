@@ -1,7 +1,7 @@
 package dev.edwin.services;
 
 import dev.edwin.daos.ExpenseCategoryDAO;
-import dev.edwin.daos.ExpenseCategoryDAOHibernate;
+import dev.edwin.daos.ExpenseCategoryDAOImp;
 import dev.edwin.entities.ExpenseCategory;
 
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Inject
-    private static ExpenseCategoryDAO edao = ExpenseCategoryDAOHibernate.getEdao();
+    private static ExpenseCategoryDAO edao = ExpenseCategoryDAOImp.getEdao();
 
     private static ExpenseCategoryService eserv;
 
@@ -35,7 +35,7 @@ public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Override
     public ExpenseCategory getExpenseCategoryByTitle(String title) {
-        List<ExpenseCategory> expenseCategories = edao.getAllExpeneseCategories();
+        List<ExpenseCategory> expenseCategories = edao.getAllExpenseCategories();
 
         for (ExpenseCategory e:
              expenseCategories) {
@@ -50,7 +50,7 @@ public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Override
     public List<ExpenseCategory> getAllExpenseCategories() {
-        return edao.getAllExpeneseCategories();
+        return edao.getAllExpenseCategories();
     }
 
     @Override

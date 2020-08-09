@@ -3,40 +3,21 @@ package dev.edwin.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Entity
-@Table(name="MANAGER")
+
 public class Manager {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="mgid")
 	private int mgid;
 	
-	@Column(name="email")
 	private String email;
 	
-	@Column(name="password")
 	private String password;
 	
-	@Column(name="name")
 	private String name;
 	
-	@Column(name="image_url")
 	private String image_url;
-	
-	@OneToMany(mappedBy = "manager", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Employee> employees = new ArrayList<Employee>();
-	
+
 
 	public Manager() {
 		super();
@@ -103,25 +84,16 @@ public class Manager {
 	}
 
 
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-
-
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-
 
 	@Override
-	public String toString() {
-		return "Manager [mgid=" + mgid + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", image_url=" + image_url + "]";
+	public String toString()
+	{
+		return "Manager{" +
+				"mgid=" + mgid +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", name='" + name + '\'' +
+				", image_url='" + image_url + '\'' +
+				'}';
 	}
-
-
-	
-	
-	
-	
 }

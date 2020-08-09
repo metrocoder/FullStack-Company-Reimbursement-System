@@ -1,19 +1,16 @@
 package dev.edwin.daotests;
 
 import dev.edwin.daos.ExpenseCategoryDAO;
-import dev.edwin.daos.ExpenseCategoryDAOHibernate;
+import dev.edwin.daos.ExpenseCategoryDAOImp;
 import dev.edwin.entities.ExpenseCategory;
 import org.junit.jupiter.api.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ExpenseCategoryDAOTest {
 
-    private static ExpenseCategoryDAO ecdao = ExpenseCategoryDAOHibernate.getEdao();
+    private static ExpenseCategoryDAO ecdao = ExpenseCategoryDAOImp.getEdao();
 
     @Test
     @Order(1)
@@ -28,7 +25,7 @@ class ExpenseCategoryDAOTest {
     @Test
     @Order(2)
     void getExpenseCategoryById() {
-        ExpenseCategory result = ecdao.getExpenseCategoryById(1);
+        ExpenseCategory result = ecdao.getExpenseCategoryById(7);
 
         Assertions.assertEquals("catImage.png", result.getImage_url());
     }
@@ -36,7 +33,7 @@ class ExpenseCategoryDAOTest {
     @Test
     @Order(3)
     void getAllExpeneseCategories() {
-        List<ExpenseCategory> expenseCategories = ecdao.getAllExpeneseCategories();
+        List<ExpenseCategory> expenseCategories = ecdao.getAllExpenseCategories();
 
         Assertions.assertNotEquals(0, expenseCategories.size());
     }

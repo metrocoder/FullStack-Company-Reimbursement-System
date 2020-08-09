@@ -7,14 +7,12 @@ import org.junit.jupiter.api.*;
 import java.sql.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReimbursementDAOTest
 {
-    private static ReimbursementDAO rdao = ReimbursementDAOHibernate.getRdao();
-    private static EmployeeDAO edao = EmployeeDAOHibernate.getEdao();
-    private static ExpenseCategoryDAO expenseCategoryDAO = ExpenseCategoryDAOHibernate.getEdao();
+    private static ReimbursementDAO rdao = ReimbursementDAOImp.getRdao();
+    private static EmployeeDAO edao = EmployeeDAOImp.getEdao();
+    private static ExpenseCategoryDAO expenseCategoryDAO = ExpenseCategoryDAOImp.getEdao();
 
     @Test
     @Order(1)
@@ -23,25 +21,27 @@ class ReimbursementDAOTest
         Reimbursement r;
         r = new Reimbursement(0,
                 300,
-                Date.valueOf("2011-10-9"),
-                false,
-                null,
+                "2011-10-9",
+                0,
+                "2000-01-01",
                 "Employee note",
                 "Manager Note",
-                expenseCategoryDAO.getExpenseCategoryById(1),
-                edao.getEmployeeById(1)
+                2,
+                10
                 );
 
         Reimbursement result = rdao.createReimbursement(r);
 
         Assertions.assertNotEquals(0, result.getRid());
+
+        System.out.println(result);
     }
 
     @Test
     @Order(2)
     void getReimbursementById()
     {
-        Reimbursement result = rdao.getReimbursementById(1);
+        Reimbursement result = rdao.getReimbursementById(7);
         Assertions.assertEquals(300, result.getAmount());
     }
 
@@ -58,7 +58,7 @@ class ReimbursementDAOTest
     @Order(5)
     void updateReimbursement()
     {
-        Reimbursement updateMe = rdao.getReimbursementById(1);
+        Reimbursement updateMe = rdao.getReimbursementById(10);
         updateMe.setAmount(400);
         Reimbursement result = rdao.updateReimbursement(updateMe);
 
@@ -70,12 +70,12 @@ class ReimbursementDAOTest
     void deleteReimbursement()
     {
         Reimbursement slaughter;
-        slaughter = new Reimbursement(0, 300, Date.valueOf("2011-10-9"), false, null,
+        slaughter = new Reimbursement(0, 300, "2011-10-9", 0, null,
                 "Delete me note", "Delete Me Manager Note",
-                expenseCategoryDAO.getExpenseCategoryById(1),edao.getEmployeeById(1)
+                2,
+                10
         );
         Reimbursement deleteMe = rdao.createReimbursement(slaughter);
-//        Reimbursement deleteMe = rdao.getReimbursementById(2);
 
         boolean result = rdao.deleteReimbursement(deleteMe);
 

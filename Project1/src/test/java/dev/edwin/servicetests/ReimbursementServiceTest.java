@@ -26,13 +26,13 @@ class ReimbursementServiceTest
         Reimbursement r;
         r = new Reimbursement(0,
                 624,
-                Date.valueOf("2020-8-6"),
-                false,
+                "2020-8-6",
+                0,
                 null,
                 "Service Employee note",
                 "Service Manager Note",
-                expenseCategoryService.getExpenseCategoryById(1),
-                employeeService.getEmployeeById(1)
+                1,
+                1
         );
 
         Reimbursement result = rserv.createReimbursement(r);
@@ -76,14 +76,14 @@ class ReimbursementServiceTest
     {
         Reimbursement slaughter;
         slaughter = new Reimbursement(0,
-                624,
-                Date.valueOf("2020-8-6"),
-                false,
+                2000,
+                "2020-8-7",
+                0,
                 null,
                 "Delete Service Employee note",
                 "Delete Service Manager Note",
-                expenseCategoryService.getExpenseCategoryById(1),
-                employeeService.getEmployeeById(1)
+                1,
+                1
         );
 
         Reimbursement deleteMe = rserv.createReimbursement(slaughter);
@@ -92,4 +92,96 @@ class ReimbursementServiceTest
         Assertions.assertEquals(true, result);
 
     }
+
+
+
+    @Test
+    void getReimbursementByEmployee()
+    {
+        List<Reimbursement> r = rserv.getReimbursementByEmployee(10);
+//        System.out.println(r);
+        Assertions.assertNotEquals(0, r.size());
+
+    }
+
+    @Test
+    void getReimbursementByCategory()
+    {
+        List<Reimbursement> r = rserv.getReimbursementByCategory(2);
+
+        Assertions.assertNotEquals(0, r.size());
+    }
+
+    @Test
+    void getReimbursementByManager()
+    {
+        List<Reimbursement> r = rserv.getReimbursementByManager(1);
+//        System.out.println(r);
+        Assertions.assertNotEquals(0, r.size());
+    }
+
+    @Test
+    void getReimbursementsApproved()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsApproved();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsDenied()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsDenied();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsAmountAscending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsAmountAscending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsAmountDescending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsAmountDescending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsStatusDateAscending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsStatusDateAscending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsStatusDateDescending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsStatusDateDescending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsSubmitDateAscending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsSubmitDateAscending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void getReimbursementsSubmitDateDescending()
+    {
+        List<Reimbursement> result = rserv.getReimbursementsSubmitDateDescending();
+        System.out.println(result);
+        Assertions.assertNotEquals(0, result.size());
+    }
+
 }

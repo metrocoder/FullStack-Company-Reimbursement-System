@@ -39,8 +39,8 @@ class ReimbursementServiceTest {
     void createReimbursement()
     {
         Reimbursement r = new Reimbursement(
-                20,200, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null);
+                20,200, "2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10);
 
 
         Mockito.when(rdao.createReimbursement(r)).thenReturn(r);
@@ -56,8 +56,8 @@ class ReimbursementServiceTest {
     @Order(2)
     void getReimbursementById() {
         Reimbursement reimbursement = new Reimbursement(
-                20,200, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null);
+                20,200,"2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10);
 
         Mockito.when(rdao.getReimbursementById(reimbursement.getRid())).thenReturn(reimbursement);
         Reimbursement result = rserv.getReimbursementById(reimbursement.getRid());
@@ -74,12 +74,12 @@ class ReimbursementServiceTest {
 
         List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
         reimbursements.add(new Reimbursement(
-                20,200, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null));
+                20,200, "2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10));
 
         reimbursements.add(new Reimbursement(
-                22,400, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null));
+                22,400, "2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10));
 
         Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
 
@@ -92,8 +92,8 @@ class ReimbursementServiceTest {
     @Order(4)
     void updateReimbursement() {
         Reimbursement reimbursement = new Reimbursement(
-                20,200, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null);
+                20,200, "2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10);
 
         Mockito.when(rdao.updateReimbursement(reimbursement)).thenReturn(reimbursement);
         Reimbursement result = rserv.updateReimbursement(reimbursement);
@@ -107,8 +107,8 @@ class ReimbursementServiceTest {
     void deleteReimbursement() {
 
         Reimbursement reimbursement = new Reimbursement(
-                20,200, Date.valueOf("2017-10-04"),false, null,
-                "Employee Note","Manager notes",null,null);
+                20,200, "2017-10-04",0, null,
+                "Employee Note","Manager notes",1,10);
 
         Mockito.when(rdao.deleteReimbursement(reimbursement)).thenReturn(true);
         boolean result = rserv.deleteReimbursement(reimbursement);

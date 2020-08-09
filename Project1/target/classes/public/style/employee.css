@@ -1,0 +1,17 @@
+
+.roll:active {
+ /* animation: roll 3s linear; */
+ animation-name: roll;
+ animation-duration: 0.3s;
+ animation-timing-function: ease;
+ /* transform: rotate(30deg); */
+}
+
+@keyframes roll {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

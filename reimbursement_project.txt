@@ -1,0 +1,45 @@
+Reimbursement System DUE DATE: first day of week 6 (August 10th)
+
+Employees can login as an employee
+Managers can login as a manager
+
+YOU DO NOT HAVE TO CREATE EMPLOYEES OR MANAGERS!!!!
+THEY CAN BE HARD CODED INTO YOUR DATABASE
+
+Employees should be able to submit reimbursements
+Employees should be able to see all reimbursements and their status
+
+(submitted approved or denied)
+
+Managers can see all reimbursements and approve the reimbursements
+Managers have the option to approve or deny and attach a reason/note
+
+All endpoints must follow RESTful naming conventions!!!!!
+
+==================================================
+Testing requirements
+
+
+Your DAO methods must be tested
+Your services must be tested with mocked DAOS 
+Every endpoint should be tested in postman 
+
+Your front end must have automated tests for
+1. employee logging in and creating a reimbursement
+2. A manager approving a reimbursement
+
+
+BONUS: 
+Write all user stories and acceptance criteria using gherkin syntax 
+Automate the front end using Selenium in Java
+Host your application on an EC2 for presentation
+
+=================================================
+Other Requirements
+1. sonar cloud report
+2. Logging any exceptions that occur in the application
+
+
+
+MANDATORY BONUS:
+Have a fun workplace appropriate theme.

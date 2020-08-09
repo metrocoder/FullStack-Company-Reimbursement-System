@@ -1,8 +1,6 @@
 package dev.edwin.servicetests;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-import dev.edwin.daos.EmployeeDAO;
 import dev.edwin.entities.Employee;
 import org.junit.jupiter.api.*;
 
@@ -13,7 +11,7 @@ import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeServiceTest {
-	
+
 	private static EmployeeService eserv = EmployeeServiceImp.getEserv();
 
 	@Test
@@ -24,7 +22,8 @@ class EmployeeServiceTest {
 				"serviceTest@email.com",
 				"testPass",
 				"Service Employee",
-				"testImg.png");
+				"testImg.png",
+				7);
 
 		Employee result = eserv.createEmployee(e);
 
@@ -35,7 +34,7 @@ class EmployeeServiceTest {
 	@Order(2)
 	void getEmployeeById()
 	{
-		Employee result = eserv.getEmployeeById(1);
+		Employee result = eserv.getEmployeeById(10);
 
 		Assertions.assertEquals("My Name",result.getName());
 	}
@@ -89,7 +88,7 @@ class EmployeeServiceTest {
 	@Order(8)
 	void updateEmployee()
 	{
-		Employee updateMe = eserv.getEmployeeById(1);
+		Employee updateMe = eserv.getEmployeeById(11);
 		updateMe.setName("Anthony Tony");
 		Employee result = eserv.updateEmployee(updateMe);
 	}
@@ -98,14 +97,25 @@ class EmployeeServiceTest {
 	@Order(9)
 	void deleteEmployee()
 	{
+
 		Employee gutMe = new Employee(0,
 				"slaughter@email.com",
 				"hotBoy666",
 				"Sgt. Slaughter",
-				"noSoul.png");
+				"noSoul.png",
+				7);
 		Employee destroy = eserv.createEmployee(gutMe);
 		boolean result = eserv.deleteEmployee(destroy);
 
 		Assertions.assertEquals(true, result);
+	}
+
+	@Test
+	@Order(10)
+	void getEmployeesByManager()
+	{
+		List<Employee> result = eserv.getEmployeeByManager(1);
+		System.out.println(result);
+		Assertions.assertNotEquals(0,result.size());
 	}
 }

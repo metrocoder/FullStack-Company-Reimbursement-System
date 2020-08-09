@@ -43,7 +43,7 @@ class ManagerServiceMockitoTest {
         Manager m = new Manager();
         m.setMgid(20);
         m.setEmail("emailer@email.com");
-        m.setEmployees(null);
+//        m.setEmployees(null);
         m.setImage_url("image URL");
         m.setName("Robo Lord");
         m.setPassword("password");
@@ -66,7 +66,7 @@ class ManagerServiceMockitoTest {
         Manager m = new Manager();
         m.setMgid(20);
         m.setEmail("emailer@email.com");
-        m.setEmployees(null);
+//        m.setEmployees(null);
         m.setImage_url("image URL");
         m.setName("Robo Lord");
         m.setPassword("password");
@@ -81,29 +81,29 @@ class ManagerServiceMockitoTest {
 
 
 
-    @Test
-    @Order(5)
-    void getAllManagers() {
-
-        List<Manager> ms = new ArrayList<Manager>();
-        Manager m = new Manager();
-        m.setMgid(20);
-        m.setEmail("emailer@email.com");
-        m.setEmployees(null);
-        m.setImage_url("image URL");
-        m.setName("Robo Lord");
-        m.setPassword("password");
-        ms.add(m);
-        ms.add(new Manager(30, "RoboText@roro.com", "0101010","Senor Robo","Robo.png"));
-
-
-        Mockito.when(mdaoMock.getAllManagers()).thenReturn(ms);
-        List<Manager> results = mserv.getAllManagers();
-        Assertions.assertNotEquals(1, results.size());
-
-//        Verifies that we Mocked the mdao in mserv
-        Mockito.verify(mdaoMock).getAllManagers();
-    }
+//    @Test
+//    @Order(5)
+//    void getAllManagers() {
+//
+//        List<Manager> ms = new ArrayList<Manager>();
+//        Manager m = new Manager();
+//        m.setMgid(20);
+//        m.setEmail("emailer@email.com");
+//        m.setEmployees(null);
+//        m.setImage_url("image URL");
+//        m.setName("Robo Lord");
+//        m.setPassword("password");
+//        ms.add(m);
+//        ms.add(new Manager(30, "RoboText@roro.com", "0101010","Senor Robo","Robo.png"));
+//
+//
+//        Mockito.when(mdaoMock.getAllManagers()).thenReturn(ms);
+//        List<Manager> results = mserv.getAllManagers();
+//        Assertions.assertNotEquals(1, results.size());
+//
+////        Verifies that we Mocked the mdao in mserv
+//        Mockito.verify(mdaoMock).getAllManagers();
+//    }
 
     @Test
     @Order(6)
@@ -111,7 +111,7 @@ class ManagerServiceMockitoTest {
         Manager m = new Manager();
         m.setMgid(20);
         m.setEmail("emailer@email.com");
-        m.setEmployees(null);
+//        m.setEmployees(null);
         m.setImage_url("image URL");
         m.setName("Robo Lord");
         m.setPassword("password");
@@ -132,7 +132,7 @@ class ManagerServiceMockitoTest {
         Manager m = new Manager();
         m.setMgid(20);
         m.setEmail("emailer@email.com");
-        m.setEmployees(null);
+//        m.setEmployees(null);
         m.setImage_url("image URL");
         m.setName("Robo Lord");
         m.setPassword("password");

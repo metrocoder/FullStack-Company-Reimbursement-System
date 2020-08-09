@@ -1,6 +1,7 @@
 package dev.edwin.services;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dev.edwin.daos.EmployeeDAO;
-import dev.edwin.daos.EmployeeDAOHibernate;
+import dev.edwin.daos.EmployeeDAOImp;
 import dev.edwin.entities.Employee;
 
 public class EmployeeServiceImp implements EmployeeService {
@@ -16,7 +17,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	private static EmployeeService eserv = null;
 	
 	@Inject
-	private EmployeeDAO edao = EmployeeDAOHibernate.getEdao();
+	private EmployeeDAO edao = EmployeeDAOImp.getEdao();
 	
 	private EmployeeServiceImp() {
 		super();
@@ -65,6 +66,21 @@ public class EmployeeServiceImp implements EmployeeService {
 	}
 
 	@Override
+	public List<Employee> getEmployeeByManager(int mgid)
+	{
+		List<Employee> employees = edao.getAllEmployees();
+		List<Employee> managedByMgid = new ArrayList<Employee>();
+
+		for(Employee e : employees)
+		{
+			if(e.getMgid() == mgid)
+				managedByMgid.add(e);
+		}
+
+		return managedByMgid;
+	}
+
+	@Override
 	public List<Employee> getAllEmployees() {
 		return edao.getAllEmployees();
 	}
@@ -72,8 +88,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	@Override
 	public List<Employee> getAllEmployeesNameAtoZ() {
 		List<Employee> employees = edao.getAllEmployees();
-		
-		employees.sort(Comparator.comparing(Employee::getName));
+		Collections.sort(employees,(e1, e2)-> String.CASE_INSENSITIVE_ORDER.compare(e1.getName(), e2.getName()));
 		return employees;
 	}
 
@@ -81,7 +96,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	public List<Employee> getAllEmployeesNameZtoA() {
 		List<Employee> employees = edao.getAllEmployees();
 		
-		employees.sort(Comparator.comparing(Employee::getName));
+		Collections.sort(employees,(e1, e2)-> String.CASE_INSENSITIVE_ORDER.compare(e1.getName(), e2.getName()));
 		Collections.reverse(employees);
 		return employees;
 	}

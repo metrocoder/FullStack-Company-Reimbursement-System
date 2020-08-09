@@ -11,7 +11,7 @@ public interface ExpenseCategoryDAO {
 
 //    READ
     ExpenseCategory getExpenseCategoryById(int cid);
-    List<ExpenseCategory> getAllExpeneseCategories();
+    List<ExpenseCategory> getAllExpenseCategories();
 
 //    UPDATE
     ExpenseCategory updateExpenseCategory(ExpenseCategory expenseCategory);

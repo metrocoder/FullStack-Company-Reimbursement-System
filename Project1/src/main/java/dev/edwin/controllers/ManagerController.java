@@ -57,7 +57,7 @@ public class ManagerController
     };
 
     public static Handler getAllManagers = (ctx) -> {
-//		Can have query to search 
+//		Can have query to search
         String name = ctx.queryParam("name");
         String email = ctx.queryParam("email");
 
@@ -100,7 +100,7 @@ public class ManagerController
         {
             boolean result = mserv.deleteManager(manager);
 
-            if(result == true)
+            if(result)
                 ctx.status(200);
             else
                 ctx.status(404);

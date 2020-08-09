@@ -13,23 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="EXPENSE_CATEGORY")
+
 public class ExpenseCategory {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cid")
+
 	private int cid;
-	
-	@Column(name="title")
+
 	private String title;
-	
-	@Column(name="image_url")
+
 	private String image_url;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "expenseCategory", cascade = CascadeType.ALL)
-	private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 	
 	
 	public ExpenseCategory() {
@@ -84,10 +76,13 @@ public class ExpenseCategory {
 
 
 	@Override
-	public String toString() {
-		return "ExpenseCategory [cid=" + cid + ", title=" + title + ", image_url=" + image_url + "]";
-	}
-	
-	
+	public String toString()
+	{
 
+		return "ExpenseCategory{" +
+				"cid=" + cid +
+				", title='" + title + '\'' +
+				", image_url='" + image_url + '\'' +
+				'}';
+	}
 }
