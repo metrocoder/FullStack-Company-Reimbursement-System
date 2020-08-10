@@ -1,15 +1,16 @@
 package dev.edwin.app;
 
-import dev.edwin.controllers.EmployeeController;
-import dev.edwin.controllers.ExpenseCategoryController;
-import dev.edwin.controllers.ManagerController;
-import dev.edwin.controllers.ReimbursementController;
+import dev.edwin.controllers.*;
 import io.javalin.Javalin;
 
 public class App {
 
 	public static void main(String[] args) {
-		Javalin app = Javalin.create().start(7000);
+		Javalin app = Javalin.create(
+				config -> {
+					config.enableCorsForAllOrigins();
+					config.addStaticFiles("/public");}
+		).start(7070);
 
 //		########################
 //		EMPLOYEE

@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: dev.edwin.servicetests.mockito.EmployeeMockitoTests
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.845 s <<< FAILURE! - in dev.edwin.servicetests.mockito.EmployeeMockitoTests
+dev.edwin.servicetests.mockito.EmployeeMockitoTests.testGetEmployeeByName  Time elapsed: 0.194 s  <<< ERROR!
+java.lang.NullPointerException
+	at dev.edwin.servicetests.mockito.EmployeeMockitoTests.testGetEmployeeByName(EmployeeMockitoTests.java:97)
+
+dev.edwin.servicetests.mockito.EmployeeMockitoTests.testGetEmployeeByEmail  Time elapsed: 0.164 s  <<< ERROR!
+java.lang.NullPointerException
+	at dev.edwin.servicetests.mockito.EmployeeMockitoTests.testGetEmployeeByEmail(EmployeeMockitoTests.java:65)
+
+dev.edwin.servicetests.mockito.EmployeeMockitoTests.getEmployeeByManager  Time elapsed: 0.158 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not equal but was: <0>
+	at dev.edwin.servicetests.mockito.EmployeeMockitoTests.getEmployeeByManager(EmployeeMockitoTests.java:192)
+

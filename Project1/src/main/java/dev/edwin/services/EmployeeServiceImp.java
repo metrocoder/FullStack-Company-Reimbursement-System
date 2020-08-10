@@ -17,7 +17,8 @@ public class EmployeeServiceImp implements EmployeeService {
 	private static EmployeeService eserv = null;
 	
 	@Inject
-	private EmployeeDAO edao = EmployeeDAOImp.getEdao();
+//	private EmployeeDAO edao;
+	private static EmployeeDAO edao = EmployeeDAOImp.getEdao();
 	
 	private EmployeeServiceImp() {
 		super();

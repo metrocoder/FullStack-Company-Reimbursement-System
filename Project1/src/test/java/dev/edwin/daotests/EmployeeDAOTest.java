@@ -31,7 +31,9 @@ class EmployeeDAOTest
     @Order(2)
     void getEmployeeById()
     {
-        Employee result = edao.getEmployeeById(10);
+        List<Employee> slaughter = edao.getAllEmployees();
+        Employee updateMe = slaughter.get(slaughter.size()-1);
+        Employee result = edao.getEmployeeById(updateMe.getEid());
 
         Assertions.assertEquals("testImg.png", result.getImage_url());
     }
@@ -49,7 +51,8 @@ class EmployeeDAOTest
     @Order(4)
     void updateEmployee()
     {
-        Employee updateMe = edao.getEmployeeById(10);
+        List<Employee> slaughter = edao.getAllEmployees();
+        Employee updateMe = slaughter.get(slaughter.size()-1);
         updateMe.setEmail("MyNewEmail@email.com");
         Employee result = edao.updateEmployee(updateMe);
 
@@ -60,13 +63,9 @@ class EmployeeDAOTest
     @Order(5)
     void deleteEmployee()
     {
-        Employee slaughter = new Employee(0,
-                "KillMe@email.com",
-                "Im dying",
-                "Dead Bro",
-                "rip.png",1);
+        List<Employee> slaughter = edao.getAllEmployees();
+        Employee deleteMe = slaughter.get(slaughter.size()-1);
 
-        Employee deleteMe = edao.createEmployee(slaughter);
         boolean result = edao.deleteEmployee(deleteMe);
 
         Assertions.assertEquals(true, result);

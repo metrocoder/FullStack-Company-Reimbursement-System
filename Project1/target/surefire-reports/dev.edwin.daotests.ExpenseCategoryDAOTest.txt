@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: dev.edwin.daotests.ExpenseCategoryDAOTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.425 s - in dev.edwin.daotests.ExpenseCategoryDAOTest

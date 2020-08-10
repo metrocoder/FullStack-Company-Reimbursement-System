@@ -35,7 +35,8 @@ class ManagerDAOTest
 	@Test
 	@Order(3)
 	void getManagerById() {
-		Manager result = mdao.getManagerById(1);
+		List<Manager> managers = mdao.getAllManagers();
+		Manager result = mdao.getManagerById(managers.get(managers.size()-1).getMgid());
 		Assertions.assertEquals("Boss One", result.getName());
 
 	}
@@ -44,11 +45,10 @@ class ManagerDAOTest
 	@Order(6)
 	void updateManager()
 	{
-		List<Manager> update = mdao.getAllManagers();
-		update.get(0).setName("Nombre Nuevo");
-//		System.out.println(update);
-		Manager result = mdao.updateManager(update.get(0));
-		System.out.println(result);
+		List<Manager> managers = mdao.getAllManagers();
+		Manager update = managers.get(managers.size()-1);
+		update.setName("Nombre Nuevo");
+		Manager result = mdao.updateManager(update);
 		Assertions.assertEquals("Nombre Nuevo", result.getName());
 	}
 
@@ -56,8 +56,8 @@ class ManagerDAOTest
 	@Order(7)
 	void deleteManager()
 	{
-		Manager slaughter = new Manager(0, "manager0@test.com", "password0", "Delete Me", "image.png");
-		Manager deleteMe = mdao.createManager(slaughter);
+		List<Manager> managers = mdao.getAllManagers();
+		Manager deleteMe = managers.get(managers.size()-1);
 		boolean result = mdao.deleteManager(deleteMe);
 
 		Assertions.assertEquals(true, result);

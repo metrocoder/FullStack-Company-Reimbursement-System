@@ -19,9 +19,9 @@ class EmployeeServiceTest {
 	void createEmployee()
 	{
 		Employee e = new Employee(0,
-				"serviceTest@email.com",
+				"one@email.com",
 				"testPass",
-				"Service Employee",
+				"one",
 				"testImg.png",
 				7);
 
@@ -36,25 +36,25 @@ class EmployeeServiceTest {
 	{
 		Employee result = eserv.getEmployeeById(10);
 
-		Assertions.assertEquals("My Name",result.getName());
+		Assertions.assertEquals(10,result.getEid() );
 	}
 
 	@Test
 	@Order(3)
 	void getEmployeeByEmail()
 	{
-		Employee result = eserv.getEmployeeByEmail("MyNewEmail@email.com");
+		Employee result = eserv.getEmployeeByEmail("one@email.com");
 
-		Assertions.assertEquals("MyNewEmail@email.com", result.getEmail());
+		Assertions.assertEquals("one@email.com", result.getEmail());
 	}
 
 	@Test
 	@Order(4)
 	void getEmployeeByName()
 	{
-		Employee result = eserv.getEmployeeByName("My Name");
+		Employee result = eserv.getEmployeeByName("one");
 
-		Assertions.assertEquals("My Name", result.getName());
+		Assertions.assertEquals("one", result.getName());
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class EmployeeServiceTest {
 	{
 		List<Employee> employees = eserv.getAllEmployeesNameAtoZ();
 
-		Assertions.assertEquals("Service Employee", employees.get(employees.size()-1).getName());
+		Assertions.assertNotEquals(0, employees.size());
 	}
 
 	@Test
@@ -81,16 +81,19 @@ class EmployeeServiceTest {
 	{
 		List<Employee> employees = eserv.getAllEmployeesNameZtoA();
 
-		Assertions.assertEquals("Service Employee", employees.get(0).getName());
+		Assertions.assertNotEquals(0, employees.size());
 	}
 
 	@Test
 	@Order(8)
 	void updateEmployee()
 	{
-		Employee updateMe = eserv.getEmployeeById(11);
+		List<Employee> employees = eserv.getAllEmployees();
+		Employee updateMe = employees.get(employees.size()-1);
 		updateMe.setName("Anthony Tony");
 		Employee result = eserv.updateEmployee(updateMe);
+
+		Assertions.assertEquals("Anthony Tony", result.getName());
 	}
 
 	@Test
@@ -98,14 +101,9 @@ class EmployeeServiceTest {
 	void deleteEmployee()
 	{
 
-		Employee gutMe = new Employee(0,
-				"slaughter@email.com",
-				"hotBoy666",
-				"Sgt. Slaughter",
-				"noSoul.png",
-				7);
-		Employee destroy = eserv.createEmployee(gutMe);
-		boolean result = eserv.deleteEmployee(destroy);
+		List<Employee> employees = eserv.getAllEmployees();
+		Employee deleteMe = employees.get(employees.size()-1);
+		boolean result = eserv.deleteEmployee(deleteMe);
 
 		Assertions.assertEquals(true, result);
 	}
@@ -118,4 +116,6 @@ class EmployeeServiceTest {
 		System.out.println(result);
 		Assertions.assertNotEquals(0,result.size());
 	}
+
+
 }

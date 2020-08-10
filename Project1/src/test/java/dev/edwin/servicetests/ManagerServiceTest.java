@@ -6,6 +6,7 @@ import dev.edwin.services.ManagerService;
 import dev.edwin.services.ManagerServiceImp;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,13 +16,15 @@ class ManagerServiceTest
 {
 
     private static ManagerService mserv = ManagerServiceImp.getMserv();
+
     @Test
     @Order(1)
     void createManager()
     {
-        Manager manager = new Manager(0, "ServiceManager@test.com", "password0", "Serv Boss", "image.png");
+        List<Manager> managers = new ArrayList<Manager>();
+        managers.add(new Manager(0, "One@test.com", "password0", "One", "image.png"));
 
-        Manager result = mserv.createManager(manager);
+        Manager result = mserv.createManager(managers.get(0));
 
         Assertions.assertNotEquals(0, result.getMgid());
     }
@@ -32,26 +35,26 @@ class ManagerServiceTest
     {
         Manager result = mserv.getManagerById(1);
 
-        Assertions.assertEquals("Nombre Nuevo", result.getName());
+        Assertions.assertEquals(1, result.getMgid());
 
-        System.out.println(result);
+//        System.out.println(result);
     }
 
     @Test
     @Order(3)
     void getManagerByName()
     {
-        Manager result = mserv.getManagerByName("Serv Boss");
+        Manager result = mserv.getManagerByName("One");
 
-        Assertions.assertEquals("Serv Boss", result.getName());
+        Assertions.assertEquals("One", result.getName());
     }
 
     @Test
     @Order(4)
     void getManagerByEmail()
     {
-        Manager result = mserv.getManagerByEmail("ServiceManager@test.com");
-        Assertions.assertEquals("ServiceManager@test.com", result.getEmail());
+        Manager result = mserv.getManagerByEmail("One@test.com");
+        Assertions.assertEquals("One@test.com", result.getEmail());
     }
 
     @Test
@@ -59,15 +62,16 @@ class ManagerServiceTest
     void getAllManagers()
     {
         List<Manager> managers = mserv.getAllManagers();
-        System.out.println(managers);
-        Assertions.assertNotEquals(-0, managers.size());
+
+        Assertions.assertNotEquals(0, managers.size());
     }
 
     @Test
     @Order(6)
     void updateManager()
     {
-        Manager updateMe = mserv.getManagerById(1);
+        List<Manager> managers = mserv.getAllManagers();
+        Manager updateMe = managers.get(managers.size()-1);
         updateMe.setPassword("ServicePass!");
         Manager result = mserv.updateManager(updateMe);
 
@@ -78,10 +82,8 @@ class ManagerServiceTest
     @Order(7)
     void deleteManager()
     {
-        Manager manager;
-        manager= new Manager(0, "DeleteServiceManager@test.com", "Del3te", "Deleted Boss", "image.png");
-
-        Manager deleteMe = mserv.createManager(manager);
+        List<Manager> managers = mserv.getAllManagers();
+        Manager deleteMe = managers.get(managers.size()-1);
         boolean result = mserv.deleteManager(deleteMe);
 
         Assertions.assertNotEquals(false, result);

@@ -6,6 +6,7 @@ import dev.edwin.services.ExpenseCategoryService;
 import dev.edwin.services.ExpenseCategoryServiceImp;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +19,7 @@ class ExpenseCategoryServiceTest {
     @Test
     @Order(1)
     void createExpenseCategory() {
-        ExpenseCategory ec = new ExpenseCategory(0, "Leisure", "leisure.png");
+        ExpenseCategory ec = new ExpenseCategory(0, "One", "One.png");
         ExpenseCategory result = expenseCategoryService.createExpenseCategory(ec);
 
         Assertions.assertNotEquals(0, result.getCid());
@@ -27,17 +28,17 @@ class ExpenseCategoryServiceTest {
     @Test
     @Order(2)
     void getExpenseCategoryById() {
-        ExpenseCategory result = expenseCategoryService.getExpenseCategoryById(1);
+        ExpenseCategory result = expenseCategoryService.getExpenseCategoryById(2);
 
-        Assertions.assertEquals("Crude Oil",result.getTitle() );
+        Assertions.assertEquals(2,result.getCid() );
     }
 
     @Test
     @Order(3)
     void getExpenseCategoryByTitle() {
-        ExpenseCategory result = expenseCategoryService.getExpenseCategoryByTitle("Crude Oil");
+        ExpenseCategory result = expenseCategoryService.getExpenseCategoryByTitle("One");
 
-        Assertions.assertEquals(1, result.getCid());
+        Assertions.assertEquals("One", result.getTitle());
     }
 
     @Test
@@ -51,7 +52,8 @@ class ExpenseCategoryServiceTest {
     @Test
     @Order(5)
     void updateExpenseCategory() {
-        ExpenseCategory updateMe = expenseCategoryService.getExpenseCategoryById(2);
+        List<ExpenseCategory> expenseCategories =expenseCategoryService.getAllExpenseCategories();
+        ExpenseCategory updateMe = expenseCategories.get(expenseCategories.size()-1);
         updateMe.setTitle("Battery Power");
         ExpenseCategory result = expenseCategoryService.updateExpenseCategory(updateMe);
 
@@ -61,8 +63,8 @@ class ExpenseCategoryServiceTest {
     @Test
     @Order(6)
     void deleteExpenseCategory() {
-        ExpenseCategory slaughterMe = new ExpenseCategory(0, "Service Delete", "leisure.png");
-        ExpenseCategory deleteMe = expenseCategoryService.createExpenseCategory(slaughterMe);
+        List<ExpenseCategory> expenseCategories =expenseCategoryService.getAllExpenseCategories();
+        ExpenseCategory deleteMe = expenseCategories.get(expenseCategories.size()-1);
         boolean result = expenseCategoryService.deleteExpenseCategory(deleteMe);
 
         Assertions.assertEquals(true, result);

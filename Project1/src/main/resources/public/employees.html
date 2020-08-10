@@ -22,8 +22,11 @@
 
     <!-- My Css -->
     <link rel="stylesheet" href="./style/employee.css">
+
+    <!-- My Logic -->
+    <script src="./logic/employee.js"></script>
 </head>
-<body >
+<body onload="populateEmployeeTable();populateBullets();">
    <!-- Nav Bar -->
    <nav style="margin-bottom: 10em;" class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
@@ -32,6 +35,7 @@
 
   <!-- Main Content -->
   <div class="container  table-responsive" style="overflow: visible;">
+    <!-- Create New Reimbursment -->
     <div class="dropright show">
         <a  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i  name="addButton" class="fa fa-plus-circle fa-5x text-primary roll" aria-hidden="true"></i>
@@ -40,44 +44,35 @@
         <div style="padding: 0.5em; " class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <form>
                 <h5 ><strong class="text-primary text-center">New Reimbursement</strong></h5>
+                <!-- Amount -->
+                <div class="form-group">
+                  <label for="amount">Amount:</label>
+                  <input id="amount" type="text" class="form-control">
+                </div>
                 <!-- Notes -->
                 <div class="form-group">
                     <label for="comment">Notes:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <textarea id="rComment" class="form-control" rows="5" id="comment"></textarea>
                 </div>
                 <!-- Category -->
-                <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label" for="radio1">
-                          <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Option 1
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <label class="form-check-label" for="radio2">
-                          <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Option 2
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" disabled>Option 3
-                        </label>
-                      </div>
+                <div id="catBullets" class="form-group">
+                    <!-- Categories Populated dynamically -->
                 </div>
                 <!-- Amount -->
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                  <input type="checkbox" class="form-check-input" id="dropdownCheck2" required>
                   <label style="word-wrap: break-word;" class="form-check-label" for="dropdownCheck2">
                     I confirm that all information above is accurate
                   </label>
                 </div>
-                <button class="btn btn-success">Submit</button>
+                <button onclick="uploadNewReimbursement();" class="btn btn-success">Submit</button>
               </form>
         </div>
       </div>    
     <h1 class="text-center text-primary">Reimbursements</h1>
 
     <!-- Table -->
-    <table class="table table-dark table-hover">
+    <table id="table" class="table table-dark table-hover">
       <thead>
         <tr>
           <th class="text-center">Category</th>
@@ -86,40 +81,8 @@
           <th class="text-center">Status</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">John</td>
-          <td class="text-center">My Notes</td>
-          <td class="text-center">200</td>
-          <td class="text-center">  
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-              Open modal
-            </button>
-        </td>
-        </tr>
-        <tr>
-            <td class="text-center">John</td>
-            <td class="text-center">My Notes</td>
-            <td class="text-center">200</td>
-            <td class="text-center">  
-                <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Open modal
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">John</td>
-            <td class="text-center">My Notes</td>
-            <td class="text-center">200</td>
-            <td class="text-center">  
-                <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Open modal
-                </button>
-            </td>
-        </tr>
+      <tbody id="tableBody">
+        <!-- Data dynamically populated -->
       </tbody>
     </table>
   </div>
@@ -142,12 +105,8 @@
                
                 <!-- User Info -->
                 <div class="col-xs-12 col-lg-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://robohash.org/johndoe/?set=set2" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">John Doe</h4>
-                        <p class="card-text">Some example text.</p>
-                        </div>
+                    <div id="modalCard" class="card">
+                        <!-- Dynamically populated -->
                     </div>
                 </div>
 
@@ -176,7 +135,7 @@
                         </tr>
                         <tr>
                             <td>Notes:</td>
-                            <td id="modalNotes">Somenotes Here</td>
+                            <td id="modalNotes" style="word-wrap: break-word;">Somenotes Here</td>
                         </tr>
                         </tbody>
                     </table>
@@ -198,13 +157,13 @@
                    <!-- Comment/Text Area -->
                     <div class="form-group">
                         <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="5" id="modalComment" disabled></textarea>
                     </div>
                     
                     <div class="text-center">
-                        <a href=""><i style="color: green;" class="fa fa-thumbs-up fa-5x" aria-hidden="true"></i></a>
+                        <a href=""><i id="thumbsUp" style="color: green;" class="fa fa-thumbs-up fa-5x" aria-hidden="true"></i></a>
                         <span style="padding: 50px;"></span>
-                        <a href=""><i style="color: red;" class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i></a>
+                        <a href=""><i id="thumbsDown" style="color: red;" class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i></a>
                         
                     </div>
                 </div>

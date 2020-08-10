@@ -16,6 +16,9 @@ import dev.edwin.entities.Employee;
 import dev.edwin.services.EmployeeService;
 import dev.edwin.services.EmployeeServiceImp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class EmployeeMockitoTests {
 	
 	@Mock
@@ -30,172 +33,163 @@ class EmployeeMockitoTests {
 	         MockitoAnnotations.initMocks(this);
 	    }
 	
-	@Test
-	@Order(1)
-	void testCreateEmployee() {
-		
-		Employee employee = new Employee();
-		employee.setEid(0);
-		employee.setEmail("test@test.com");
-		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
-		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
-		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("test@test.com", result.getEmail());
-	}
-	
-
-	@Test
-	@Order(2)
-	void testGetEmployeeById() {
-		
-		Employee employee = new Employee();
-		employee.setEid(11);
-		employee.setEmail("test@test.com");
-		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
-		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.getEmployeeById(employee.getEid())).thenReturn(employee);
-		
-		Employee result = eserv.getEmployeeById(employee.getEid());
-		
-		Assertions.assertEquals(11, result.getEid());
-	}
-	
 
 	@Test
 	@Order(3)
 	void testGetEmployeeByEmail() {
-		
+
 		Employee employee = new Employee();
 		employee.setEid(0);
-		employee.setEmail("test@test.com");
+		employee.setEmail("test1@test.com");
 		employee.setImage_url("image.png");
 		employee.setName("Employee Name");
 		employee.setPassword("MyPassword");
+		employee.setMgid(10);
+
+		Employee employee2 = new Employee();
+		employee2.setEid(0);
+		employee2.setEmail("test2@test.com");
+		employee2.setImage_url("image.png");
+		employee2.setName("Employee Name");
+		employee2.setPassword("MyPassword");
+		employee2.setMgid(11);
+
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employee);
+		employees.add(employee2);
+
+		Mockito.when(edaoMock.getAllEmployees()).thenReturn(employees);
 		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
+		Employee result = eserv.getEmployeeByEmail("test2@test.com");
 		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("test@test.com", result.getEmail());
+		Assertions.assertEquals("test2@test.com", result.getEmail());
 	}
 	
 
 	@Test
 	@Order(4)
 	void testGetEmployeeByName() {
-		
+
 		Employee employee = new Employee();
 		employee.setEid(0);
 		employee.setEmail("test@test.com");
 		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
+		employee.setName("One");
 		employee.setPassword("MyPassword");
+		employee.setMgid(10);
+
+		Employee employee2 = new Employee();
+		employee2.setEid(0);
+		employee2.setEmail("test@test.com");
+		employee2.setImage_url("image.png");
+		employee2.setName("Two");
+		employee2.setPassword("MyPassword");
+		employee2.setMgid(11);
+
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employee);
+		employees.add(employee2);
+
+		Mockito.when(edaoMock.getAllEmployees()).thenReturn(employees);
 		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
+		Employee result = eserv.getEmployeeByName("One");
 		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("Employee Name", result.getName());
-	}
-	
-	@Test
-	@Order(5)
-	void testGetAllEmployees() {
-		
-		Employee employee = new Employee();
-		employee.setEid(0);
-		employee.setEmail("test@test.com");
-		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
-		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
-		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("test@test.com", result.getEmail());
+		Assertions.assertEquals("One", result.getName());
 	}
 	
 
 	@Test
 	@Order(6)
 	void testGetAllEmployeesAtoZ() {
-		
+
 		Employee employee = new Employee();
-		employee.setEid(11);
+		employee.setEid(0);
 		employee.setEmail("test@test.com");
 		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
+		employee.setName("One");
 		employee.setPassword("MyPassword");
+		employee.setMgid(10);
+
+		Employee employee2 = new Employee();
+		employee2.setEid(0);
+		employee2.setEmail("test@test.com");
+		employee2.setImage_url("image.png");
+		employee2.setName("Two");
+		employee2.setPassword("MyPassword");
+		employee2.setMgid(11);
+
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employee);
+		employees.add(employee2);
+
+		Mockito.when(edaoMock.getAllEmployees()).thenReturn(employees);
 		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
+		List<Employee> result = eserv.getAllEmployeesNameAtoZ();
 		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals(11, result.getEid());
+		Assertions.assertNotEquals(0, result.size());
 	}
 	
 
 	@Test
 	@Order(7)
 	void testGetAllEmployeesZtoA() {
-		
+
 		Employee employee = new Employee();
 		employee.setEid(0);
 		employee.setEmail("test@test.com");
 		employee.setImage_url("image.png");
 		employee.setName("Employee Name");
 		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
-		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("test@test.com", result.getEmail());
+		employee.setMgid(10);
+
+		Employee employee2 = new Employee();
+		employee2.setEid(0);
+		employee2.setEmail("test@test.com");
+		employee2.setImage_url("image.png");
+		employee2.setName("Employee Name");
+		employee2.setPassword("MyPassword");
+		employee2.setMgid(11);
+
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employee);
+		employees.add(employee2);
+
+		Mockito.when(edaoMock.getAllEmployees()).thenReturn(employees);
+
+		List<Employee> result = eserv.getAllEmployeesNameZtoA();
+
+		Assertions.assertNotEquals(0, result.size());
 	}
-	
 
 	@Test
 	@Order(8)
-	void testUpdateEmployee() {
-		
+	void getEmployeeByManager()
+	{
 		Employee employee = new Employee();
 		employee.setEid(0);
 		employee.setEmail("test@test.com");
 		employee.setImage_url("image.png");
 		employee.setName("Employee Name");
 		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.createEmployee(employee)).thenReturn(employee);
-		
-		Employee result = eserv.createEmployee(employee);
-		
-		Assertions.assertEquals("test@test.com", result.getEmail());
-	}
-	
-	@Test
-	@Order(8)
-	void testDeleteEmployee() {
-		
-		Employee employee = new Employee();
-		employee.setEid(0);
-		employee.setEmail("test@test.com");
-		employee.setImage_url("image.png");
-		employee.setName("Employee Name");
-		employee.setPassword("MyPassword");
-		
-		Mockito.when(edaoMock.deleteEmployee(employee)).thenReturn(true);
-		
-		boolean result = eserv.deleteEmployee(employee);
-		
-		Assertions.assertEquals(true, result);
+		employee.setMgid(10);
+
+		Employee employee2 = new Employee();
+		employee2.setEid(0);
+		employee2.setEmail("test@test.com");
+		employee2.setImage_url("image.png");
+		employee2.setName("Employee Name");
+		employee2.setPassword("MyPassword");
+		employee2.setMgid(11);
+
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employee);
+		employees.add(employee2);
+
+		Mockito.when(edaoMock.getAllEmployees()).thenReturn(employees);
+
+		List<Employee> result = eserv.getEmployeeByManager(10);
+
+		Assertions.assertNotEquals(0, result.size());
 	}
 	
 	

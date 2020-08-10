@@ -5,10 +5,7 @@ import dev.edwin.entities.Manager;
 import dev.edwin.entities.Reimbursement;
 import dev.edwin.services.ReimbursementService;
 import dev.edwin.services.ReimbursementServiceImp;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -20,6 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReimbursementServiceTest {
 
     @Mock
@@ -34,86 +32,244 @@ class ReimbursementServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+
     @Test
     @Order(1)
-    void createReimbursement()
+    void getReimbursementByEmployee()
     {
-        Reimbursement r = new Reimbursement(
-                20,200, "2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10);
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
 
+        List<Reimbursement> results = rserv.getReimbursementByEmployee(2);
 
-        Mockito.when(rdao.createReimbursement(r)).thenReturn(r);
-        Reimbursement result = rserv.createReimbursement(r);
-
-        Assertions.assertNotEquals(0, result.getRid());
-
-//        Verifies that we Mocked the mdao in mserv
-        Mockito.verify(rdao).createReimbursement(r);
+        Assertions.assertNotEquals(0,results.size());
     }
 
     @Test
     @Order(2)
-    void getReimbursementById() {
-        Reimbursement reimbursement = new Reimbursement(
-                20,200,"2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10);
-
-        Mockito.when(rdao.getReimbursementById(reimbursement.getRid())).thenReturn(reimbursement);
-        Reimbursement result = rserv.getReimbursementById(reimbursement.getRid());
-
-        Assertions.assertEquals(20, result.getRid());
-        System.out.println(reimbursement);
-        Mockito.verify(rdao).getReimbursementById(reimbursement.getRid());
-
-    }
-
-    @Test
-    @Order(3)
-    void getAllReimbursement() {
-
+    void getReimbursementByCategory()
+    {
         List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
-        reimbursements.add(new Reimbursement(
-                20,200, "2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10));
-
-        reimbursements.add(new Reimbursement(
-                22,400, "2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10));
-
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
         Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
 
-        List<Reimbursement> results = rserv.getAllReimbursement();
+        List<Reimbursement> results = rserv.getReimbursementByCategory(2);
 
-        Assertions.assertEquals(2, results.size());
+        Assertions.assertNotEquals(0,results.size());
     }
 
     @Test
     @Order(4)
-    void updateReimbursement() {
-        Reimbursement reimbursement = new Reimbursement(
-                20,200, "2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10);
+    void getReimbursementsApproved()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
 
-        Mockito.when(rdao.updateReimbursement(reimbursement)).thenReturn(reimbursement);
-        Reimbursement result = rserv.updateReimbursement(reimbursement);
+        List<Reimbursement> results = rserv.getReimbursementsApproved();
 
-        Assertions.assertEquals(200, result.getAmount());
-        Mockito.verify(rdao).updateReimbursement(reimbursement);
+        Assertions.assertNotEquals(0,results.size());
     }
 
     @Test
     @Order(5)
-    void deleteReimbursement() {
+    void getReimbursementsDenied()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
 
-        Reimbursement reimbursement = new Reimbursement(
-                20,200, "2017-10-04",0, null,
-                "Employee Note","Manager notes",1,10);
+        List<Reimbursement> results = rserv.getReimbursementsDenied();
 
-        Mockito.when(rdao.deleteReimbursement(reimbursement)).thenReturn(true);
-        boolean result = rserv.deleteReimbursement(reimbursement);
+        Assertions.assertNotEquals(0,results.size());
+    }
 
-        Assertions.assertEquals(true, result);
-        Mockito.verify(rdao).deleteReimbursement(reimbursement);
+    @Test
+    @Order(6)
+    void getReimbursementsAmountAscending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsAmountAscending();
+
+        Assertions.assertNotEquals(0,results.size());
+    }
+
+    @Test
+    @Order(7)
+    void getReimbursementsAmountDescending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsAmountDescending();
+
+        Assertions.assertNotEquals(0,results.size());
+    }
+
+    @Test
+    @Order(8)
+    void getReimbursementsStatusDateAscending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsStatusDateAscending();
+
+        Assertions.assertNotEquals(0,results.size());
+    }
+
+    @Test
+    @Order(9)
+    void getReimbursementsStatusDateDescending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsStatusDateDescending();
+
+        Assertions.assertNotEquals(0,results.size());
+    }
+
+    @Test
+    @Order(10)
+    void getReimbursementsSubmitDateAscending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsSubmitDateAscending();
+
+        Assertions.assertNotEquals(0,results.size());
+    }
+
+    @Test
+    @Order(11)
+    void getReimbursementsSubmitDateDescending()
+    {
+        List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+        reimbursements.add(new Reimbursement(1,
+                100,
+                "2020-11-01",
+                0, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 1, 1));
+        reimbursements.add(new Reimbursement(2,
+                200,
+                "2020-11-02",
+                1, "2000-01-01",
+                "Employee Note",
+                "Manager Note", 2, 2));
+        Mockito.when(rdao.getAllReimbursement()).thenReturn(reimbursements);
+
+        List<Reimbursement> results = rserv.getReimbursementsSubmitDateDescending();
+
+        Assertions.assertNotEquals(0,results.size());
     }
 }

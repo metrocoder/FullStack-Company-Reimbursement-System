@@ -10,6 +10,8 @@ import java.util.List;
 public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
 
     @Inject
+//    private ExpenseCategoryDAO edao;
+
     private static ExpenseCategoryDAO edao = ExpenseCategoryDAOImp.getEdao();
 
     private static ExpenseCategoryService eserv;
@@ -37,8 +39,7 @@ public class ExpenseCategoryServiceImp implements ExpenseCategoryService {
     public ExpenseCategory getExpenseCategoryByTitle(String title) {
         List<ExpenseCategory> expenseCategories = edao.getAllExpenseCategories();
 
-        for (ExpenseCategory e:
-             expenseCategories) {
+        for (ExpenseCategory e: expenseCategories) {
             if (e.getTitle().compareToIgnoreCase(title) == 0)
             {
                 return e;

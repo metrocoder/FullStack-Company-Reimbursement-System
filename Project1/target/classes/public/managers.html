@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/425fdbf17c.js"></script>
+
+    <!-- My Css -->
+    <!-- <link rel="stylesheet" href="./style/manager.css"> -->
+
+    <!-- My Logic -->
+    <script src="./logic/manager.js"></script>
+</head>
+<body onload="populateManagerTable();">
+   <!-- Nav Bar -->
+   <nav style="margin-bottom: 10em;" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a style="height: auto; width: 300px;margin: auto;" class="navbar-brand text-center" href="#">Revature Reimbursement</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container  table-responsive" style="overflow: visible;">
+    <h1 class="text-center text-primary">Reimbursements</h1>
+
+    <!-- Table -->
+    <table id="table" class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">Category</th>
+          <th class="text-center">My Notes</th>
+          <th class="text-center">Amount</th>
+          <th class="text-center">Status</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Data dynamically populated -->
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header ">
+          <h2 class="text-center text-primary"><strong>Reimbursement Details</strong></h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+           <div class="row">
+               
+                <!-- User Info -->
+                <div class="col-xs-12 col-lg-4">
+                    <div id="modalCard" class="card">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+               <!-- Empty Space -->
+                <div class="col-xs-0 col-lg-4">
+                    <span></span>
+                </div>
+
+               <!-- Reimbursement Details -->
+               <div class="col-xs-12 col-lg-4">
+                    <table class="table table-borderless table-responsive">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Amount: </td>
+                            <td id="modalAmount">$200</td>
+                        </tr>
+                        <tr>
+                            <td>Category:</td>
+                            <td id="modalCategory">category name</td>
+                        </tr>
+                        <tr>
+                            <td>Notes:</td>
+                            <td id="modalNotes" style="word-wrap: break-word;">Somenotes Here</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+           </div>
+
+           <br>
+           <br>
+
+           <!-- Manager Section -->
+           <div class="row">
+               <!-- Empty Space -->
+               <div class="col-sm-1 col-lg-1">
+                   <span></span>
+               </div>
+
+               <!-- Main Feedback -->
+               <div class="col-sm-10 col-lg-10">
+                   <!-- Comment/Text Area -->
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="5" id="modalCommentManager"></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a onclick="statusUpdate('approved')" ><i id="thumbsUp" style="color: green;" class="fa fa-thumbs-up fa-5x" aria-hidden="true"></i></a>
+                        <span style="padding: 50px;"></span>
+                        <a  onclick="statusUpdate('denied')" ><i id="thumbsDown" style="color: red;" class="fa fa-thumbs-down fa-5x" aria-hidden="true"></i></a>
+                        
+                    </div>
+                </div>
+
+                 <!-- Empty Space -->
+                <div class="col-sm-1 col-lg-1">
+                    <span></span>
+                </div>
+           </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" onclick="location.reload();" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

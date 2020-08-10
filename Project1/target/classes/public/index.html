@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Robo Revature</title>
 
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,44 +16,106 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body >
-    
 
-    <!-- Nav bar -->
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <!-- Brand -->
-        <a style="height: auto; width: 300px;margin: auto;" class="navbar-brand text-center" href="#">Revature Reimbursement</a>
+    <!-- My logic -->
+    <script src="./logic/login.js"></script>
+</head>
+<body onload="checkStorageCapable();">
     
+  <!-- Persist -->
+  <div id="headerElements">
+      <!-- Nav bar -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+      <!-- Brand -->
+      <a style="height: auto; width: 300px;margin: auto;" class="navbar-brand text-center" href="#">Revature Reimbursement</a>
     </nav>
+    
+    <!-- Alert -->
+    <div id="alert" style="display: none;" class="alert alert-danger">
+      <strong>Warning!</strong> Your browser doesn't allow session storage.
+    </div>
+  </div>
+
+
 
     <!-- Log in form -->
     <div class="container" style="padding: 20em;">
-            <!-- Log-in Form w/ BS4 validation -->
-                <form action="/action_page.php" class="was-validation">
-                    <div class="form-group">
-                      <label for="uname">Username:</label>
-                      <input type="text" class="form-control" id="name" placeholder="Enter username" name="name" required>
-                      <div class="valid-feedback">Valid.</div>
-                      <div class="invalid-feedback">Please fill out this field.</div>
-                    </div>
-                    <div class="form-group">
-                      <label for="pwd">Password:</label>
-                      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
-                      <div class="valid-feedback">Valid.</div>
-                      <div class="invalid-feedback">Please fill out this field.</div>
-                    </div>
-                    <div class="form-group form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Check this checkbox to continue.</div>
-                      </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
-            
+      <!-- Log-in Form w/ BS4 validation -->
+      <form id="form" class="needs-validation" novalidate>
+          <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="Enter Email" name="Email Input" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input id="manager" type="radio" class="form-check-input" name="optradio"required>Manager
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Check this checkbox to continue.</div>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input id="employee" type="radio" class="form-check-input" name="optradio">Employee
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Check this checkbox to continue.</div>
+              </label>
+            </div>
+           
+          </div>
+          <div class="form-group form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" name="remember" required> I accept the terms and condition of Robo Revature Inc.
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Check this checkbox to continue.</div>
+            </label>
+          </div>
+          <button type="button" onclick="verifyUser()" class="btn btn-primary">Submit</button>
+        </form>
+        <div id="spinners" class="row" style="margin-top: 2em; display: none;">
+          <div class="col-lg-4">
+            <div class="spinner-grow text-primary"></div>
+          </div>
+          <div class="col-lg-4">
+            <div class="spinner-grow text-primary"></div>
+          </div>
+           <div class="col-lg-4">
+            <div class="spinner-grow text-primary"></div>
+          </div>
+          
+          
+          
+        </div>   
+        
     </div>
-
+    
+    <script>
+      // Disable form submissions if there are invalid fields
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Get the forms we want to add validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('button', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+      </script>
 </body>
 </html>

@@ -25,7 +25,8 @@ class ExpenseCategoryDAOTest {
     @Test
     @Order(2)
     void getExpenseCategoryById() {
-        ExpenseCategory result = ecdao.getExpenseCategoryById(7);
+        List<ExpenseCategory> expenseCategories = ecdao.getAllExpenseCategories();
+        ExpenseCategory result = ecdao.getExpenseCategoryById(expenseCategories.get(expenseCategories.size() -1).getCid());
 
         Assertions.assertEquals("catImage.png", result.getImage_url());
     }
@@ -41,7 +42,8 @@ class ExpenseCategoryDAOTest {
     @Test
     @Order(4)
     void updateExpenseCategory() {
-        ExpenseCategory expenseCategory = ecdao.getExpenseCategoryById(1);
+        List<ExpenseCategory> expenseCategories = ecdao.getAllExpenseCategories();
+        ExpenseCategory expenseCategory = expenseCategories.get(expenseCategories.size() -1);
         expenseCategory.setTitle("Crude Oil");
         ExpenseCategory result = ecdao.updateExpenseCategory(expenseCategory);
 
@@ -52,9 +54,9 @@ class ExpenseCategoryDAOTest {
     @Order(5)
     void deleteExpenseCategory()
     {
-        ExpenseCategory sheep = new ExpenseCategory(0, "Delete Me!", "DeleteImage.png");
-        ExpenseCategory deleteMe = ecdao.createExpenseCategory(sheep);
-        boolean result = ecdao.deleteExpenseCategory(deleteMe);
+        List<ExpenseCategory> expenseCategories = ecdao.getAllExpenseCategories();
+        ExpenseCategory expenseCategory = expenseCategories.get(expenseCategories.size() -1);
+        boolean result = ecdao.deleteExpenseCategory(expenseCategory);
 
         Assertions.assertNotEquals(false, result);
 

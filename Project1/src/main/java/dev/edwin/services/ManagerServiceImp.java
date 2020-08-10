@@ -10,8 +10,9 @@ import java.util.List;
 public class ManagerServiceImp implements ManagerService {
 
     @Inject
-    private ManagerDAO mdao = ManagerDAOImp.getMdao();
+//    private ManagerDAO mdao;
 
+    private ManagerDAO mdao = ManagerDAOImp.getMdao();
 
     private static ManagerService mserv;
 

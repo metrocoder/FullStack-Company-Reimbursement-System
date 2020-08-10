@@ -11,7 +11,9 @@ import java.util.*;
 public class ReimbursementServiceImp implements ReimbursementService {
 
     @Inject
-    private  ReimbursementDAO rdao = ReimbursementDAOImp.getRdao();
+//    private  ReimbursementDAO rdao ;
+
+    private static ReimbursementDAO rdao = ReimbursementDAOImp.getRdao();
 
     private static EmployeeService employeeService = EmployeeServiceImp.getEserv();
 

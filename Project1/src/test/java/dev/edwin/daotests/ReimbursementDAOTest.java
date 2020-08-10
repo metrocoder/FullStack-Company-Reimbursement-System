@@ -41,7 +41,8 @@ class ReimbursementDAOTest
     @Order(2)
     void getReimbursementById()
     {
-        Reimbursement result = rdao.getReimbursementById(7);
+        List<Reimbursement> reimbursements = rdao.getAllReimbursement();
+        Reimbursement result = rdao.getReimbursementById(reimbursements.get(reimbursements.size()-1).getRid());
         Assertions.assertEquals(300, result.getAmount());
     }
 
@@ -50,7 +51,6 @@ class ReimbursementDAOTest
     void getAllReimbursement()
     {
         List<Reimbursement> reimbursements = rdao.getAllReimbursement();
-
         Assertions.assertNotEquals(0, reimbursements.size());
     }
 
@@ -58,7 +58,8 @@ class ReimbursementDAOTest
     @Order(5)
     void updateReimbursement()
     {
-        Reimbursement updateMe = rdao.getReimbursementById(10);
+        List<Reimbursement> reimbursements = rdao.getAllReimbursement();
+        Reimbursement updateMe = rdao.getReimbursementById(reimbursements.get(reimbursements.size()-1).getRid());
         updateMe.setAmount(400);
         Reimbursement result = rdao.updateReimbursement(updateMe);
 
@@ -69,13 +70,8 @@ class ReimbursementDAOTest
     @Order(6)
     void deleteReimbursement()
     {
-        Reimbursement slaughter;
-        slaughter = new Reimbursement(0, 300, "2011-10-9", 0, null,
-                "Delete me note", "Delete Me Manager Note",
-                2,
-                10
-        );
-        Reimbursement deleteMe = rdao.createReimbursement(slaughter);
+        List<Reimbursement> reimbursements = rdao.getAllReimbursement();
+        Reimbursement deleteMe = rdao.getReimbursementById(reimbursements.get(reimbursements.size()-1).getRid());
 
         boolean result = rdao.deleteReimbursement(deleteMe);
 

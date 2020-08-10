@@ -4,9 +4,7 @@ import dev.edwin.daos.ExpenseCategoryDAO;
 import dev.edwin.entities.ExpenseCategory;
 import dev.edwin.services.ExpenseCategoryService;
 import dev.edwin.services.ExpenseCategoryServiceImp;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,98 +13,38 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ExpenseCategoryServiceTest {
 
     @Mock
-    private ExpenseCategoryDAO ecdao;
+    private ExpenseCategoryDAO mockDao;
 
     @InjectMocks
     private ExpenseCategoryService ecserv = ExpenseCategoryServiceImp.getEserv();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp()
+    {
 
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void createExpenseCategory() {
-        ExpenseCategory expenseCategory = new ExpenseCategory(20,"Test Cat","Cat.png");
-
-        Mockito.when(ecdao.createExpenseCategory(expenseCategory)).thenReturn(expenseCategory);
-        ExpenseCategory result = ecserv.createExpenseCategory(expenseCategory);
-
-        Assertions.assertEquals("Test Cat", result.getTitle());
-
-        Mockito.verify(ecdao).createExpenseCategory(expenseCategory);
-    }
 
     @Test
-    void getExpenseCategoryById() {
-        ExpenseCategory expenseCategory = new ExpenseCategory(20,"Test Cat","Cat.png");
-
-        Mockito.when(ecdao.getExpenseCategoryById(expenseCategory.getCid())).thenReturn(expenseCategory);
-        ExpenseCategory result = ecserv.getExpenseCategoryById(expenseCategory.getCid());
-
-        Assertions.assertEquals("Test Cat", result.getTitle());
-
-        Mockito.verify(ecdao).getExpenseCategoryById(expenseCategory.getCid());
-    }
-
-    @Test
+    @Order(1)
     void getExpenseCategoryByTitle() {
-        List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
-        expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
-        expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
+        List<ExpenseCategory> expenseCategoryArrayList = new ArrayList<ExpenseCategory>();
 
-        Mockito.when(ecdao.getAllExpenseCategories()).thenReturn(expenseCategories);
-        ExpenseCategory result = ecserv.getExpenseCategoryByTitle(expenseCategories.get(0).getTitle());
+        ExpenseCategory e = new ExpenseCategory(1,"One","Cat.png");
+        ExpenseCategory e2 = new ExpenseCategory(2,"Two","Cat.png");
+        expenseCategoryArrayList.add(e);
+        expenseCategoryArrayList.add(e2);
 
-        Assertions.assertEquals("Test Cat", result.getTitle());
+        Mockito.when(mockDao.getAllExpenseCategories()).thenReturn(expenseCategoryArrayList);
+        ExpenseCategory result = ecserv.getExpenseCategoryByTitle("One");
 
-        Mockito.verify(ecdao).getAllExpenseCategories();
-    }
+        Assertions.assertEquals("One", result.getTitle());
 
-    @Test
-    void getAllExpenseCategories() {
-        List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
-        expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
-        expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
-
-        Mockito.when(ecdao.getAllExpenseCategories()).thenReturn(expenseCategories);
-        List<ExpenseCategory> result = ecserv.getAllExpenseCategories();
-
-        Assertions.assertNotEquals(0, result.size());
-
-        Mockito.verify(ecdao).getAllExpenseCategories();
-    }
-
-    @Test
-    void updateExpenseCategory() {
-        List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
-        expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
-        expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
-
-        Mockito.when(ecdao.updateExpenseCategory(expenseCategories.get(0))).thenReturn(expenseCategories.get(0));
-        ExpenseCategory result = ecserv.updateExpenseCategory(expenseCategories.get(0));
-
-        Assertions.assertEquals(20, result.getCid());
-
-        Mockito.verify(ecdao).updateExpenseCategory(expenseCategories.get(0));
-    }
-
-    @Test
-    void deleteExpenseCategory() {
-
-        List<ExpenseCategory> expenseCategories = new ArrayList<ExpenseCategory>();
-        expenseCategories.add(new ExpenseCategory(20,"Test Cat","Cat.png"));
-        expenseCategories.add(new ExpenseCategory(21,"Test Cat 1","Cat12.png"));
-
-        Mockito.when(ecdao.deleteExpenseCategory(expenseCategories.get(0))).thenReturn(true);
-        boolean result = ecserv.deleteExpenseCategory(expenseCategories.get(0));
-
-        Assertions.assertNotEquals(false, result);
-
-        Mockito.verify(ecdao).deleteExpenseCategory(expenseCategories.get(0));
+        Mockito.verify(mockDao).getAllExpenseCategories();
     }
 }
