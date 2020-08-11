@@ -62,10 +62,9 @@ function storeShhh(value1){
 
 async function login()
 {
-    // let response = await fetch("http://localhost:7000/managers?email=RoboBoss2000@01010110011.com");
-    // console.log(info[0].password);
+
     document.getElementById("spinners").style.display = "visible;";
-    let response = await fetch(`http://localhost:7000/${sessionStorage.getItem("role")}?email=${sessionStorage.getItem("email")}`);
+    let response = await fetch(`${document.URL}${sessionStorage.getItem("role")}?email=${sessionStorage.getItem("email")}`);
     let info = await response.json();
     localStorage.setItem("json", info);
     // document.cookie = info;
@@ -76,7 +75,7 @@ async function login()
     
     if (info[0].password === sessionStorage.getItem('shhh'))
     {
-        // window.location = `http://localhost:7000/${sessionStorage.getItem("role")}.html`;
+        window.location = `${document.URL}${sessionStorage.getItem("role")}.html`;
     }
 
     

@@ -15,7 +15,7 @@ async function populateEmployeeTable()
 {
     let tableBody = document.getElementById("tableBody");
 
-    let response = await fetch(`http://localhost:7000/reimbursements?employeeId=10`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursements?employeeId=${JSON.parse(localStorage.getItem("data"))[0].eid}`);
     let info = await response.json();
 
     for (let index = 0; index < info.length; index++) {
@@ -58,21 +58,21 @@ async function populateEmployeeModal(eid,rid) {
 
 async function fetchCategoryData(cid)
 {
-    let response = await fetch(`http://localhost:7000/expense-category/${cid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/expense-category/${cid}`);
     let info = await response.json();
     return info;
 }
 
 async function fetchReimbursementById(rid)
 {
-    let response = await fetch(`http://localhost:7000/reimbursement/${rid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursement/${rid}`);
     let info = await response.json();
     return info;
 }
 
 async function fetchEmployeeData(eid)
 {
-    let response = await fetch(`http://localhost:7000/employee/${eid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/employee/${eid}`);
     let info = await response.json();
     return info;
 }
@@ -138,7 +138,7 @@ async function populateModalReimbursementDetails(rid)
 async function populateBullets()
 {
     let catBullets = document.getElementById("catBullets");
-    let response = await fetch(`http://localhost:7000/expense-categories`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/expense-categories`);
     let info = await response.json();
 
     for (let index = 0; index < info.length; index++) {
@@ -185,7 +185,8 @@ async function uploadNewReimbursement()
     "employee_note": `${employee_note}`,
     "manager_note":"",
     "cid":selection,
-    "eid":10});
+    "eid": JSON.parse(localStorage.getItem("data"))[0].eid
+});
 
     var requestOptions = {
     method: 'PUT',
@@ -194,7 +195,7 @@ async function uploadNewReimbursement()
     redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:7000/reimbursement", requestOptions)
+    let response = await fetch("http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursement", requestOptions)
     
     location.reload();
 

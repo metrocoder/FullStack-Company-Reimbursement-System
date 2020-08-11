@@ -1,9 +1,6 @@
 package dev.edwin.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.*;
 
 
 public class Manager {

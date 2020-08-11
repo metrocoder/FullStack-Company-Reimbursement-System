@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: dev.edwin.servicetests.EmployeeServiceTest
--------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.938 s - in dev.edwin.servicetests.EmployeeServiceTest

@@ -1,22 +1,15 @@
 package dev.edwin.daos;
 
 import dev.edwin.entities.ExpenseCategory;
-import dev.edwin.entities.Manager;
-import dev.edwin.utils.ConnectionUtil;
-import dev.edwin.utils.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import dev.edwin.utils.ConnectionUtil;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseCategoryDAOImp implements ExpenseCategoryDAO {
-//    private static SessionFactory sf = HibernateUtil.getSessionFactory();
+
 
     private static ExpenseCategoryDAO edao;
 

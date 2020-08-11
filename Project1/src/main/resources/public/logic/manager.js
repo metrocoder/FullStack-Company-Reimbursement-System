@@ -16,7 +16,7 @@ async function populateManagerTable()
 {
     let tableBody = document.getElementById("tableBody");
 
-    let response = await fetch(`http://localhost:7000/reimbursements?managerId=7`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursements?managerId=${JSON.parse(localStorage.getItem("data"))[0].mgid}`);
     let info = await response.json();
 
     for (let index = 0; index < info.length; index++) {
@@ -56,21 +56,21 @@ async function populateEmployeeModal(eid,rid) {
 
 async function fetchCategoryData(cid)
 {
-    let response = await fetch(`http://localhost:7000/expense-category/${cid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/expense-category/${cid}`);
     let info = await response.json();
     return info;
 }
 
 async function fetchReimbursementById(rid)
 {
-    let response = await fetch(`http://localhost:7000/reimbursement/${rid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursement/${rid}`);
     let info = await response.json();
     return info;
 }
 
 async function fetchEmployeeData(eid)
 {
-    let response = await fetch(`http://localhost:7000/employee/${eid}`);
+    let response = await fetch(`http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/employee/${eid}`);
     let info = await response.json();
     return info;
 }
@@ -99,7 +99,7 @@ async function populateModalReimbursementDetails(rid)
     let modalNotes = document.getElementById("modalNotes");
     let thumbsUp = document.getElementById("thumbsUp");
     let thumbsDown = document.getElementById("thumbsDown");
-    let modalComment = document.getElementById("modalComment");
+    let modalComment = document.getElementById("modalCommentManager");
 
     let rData = await fetchReimbursementById(rid);
     let cData = await fetchCategoryData(rData.cid);
@@ -108,9 +108,9 @@ async function populateModalReimbursementDetails(rid)
     modalAmount.innerHTML = `$ ${rData.amount}`;
     modalCategory.innerHTML = `${cData.title}`;
     modalNotes.innerHTML = `${rData.employee_note}`;
-    modalComment.innerHTML = `${rData.manager_note}`;
+    modalComment.textContent = `${rData.manager_note}`;
 
-    if(cData.status === 0)
+    if(rData.status === 0)
     {
         thumbsUp.style.color = "gray"
         thumbsDown.style.color = "red"
@@ -127,7 +127,7 @@ async function populateModalReimbursementDetails(rid)
      
 async function statusUpdate(status)
 {
-    let managerNote = document.getElementById("modalCommentManager").innerHTML;
+    let managerNote = document.getElementById("modalCommentManager").value;
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -147,9 +147,9 @@ async function statusUpdate(status)
         redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:7000/reimbursement", requestOptions)
+    await fetch("http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursement", requestOptions)
 
-
+    location.reload();
 }
        
 function cleanTable()
